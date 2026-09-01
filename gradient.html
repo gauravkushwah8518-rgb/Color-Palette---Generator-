@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gradient Studio — ColorCraft</title>
+  <meta name="description" content="Design multi-stop linear, radial, and conic gradients with live preview, angle dials, and instant CSS export." />
+  <meta property="og:title" content="Gradient Studio — ColorCraft" />
+  <meta property="og:description" content="Design multi-stop linear, radial, and conic gradients with live preview, angle dials, and instant CSS export." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Theme Script in head -->
+  <script src="js/theme.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="site-navbar" id="siteNavbar">
+    <div class="app-container">
+      <div class="navbar-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon-wrapper">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <span>ColorCraft</span>
+          <span class="logo-tag">Pro</span>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li class="nav-item"><a href="index.html" class="nav-link">Generator</a></li>
+            <li class="nav-item"><a href="explorer.html" class="nav-link">Explorer</a></li>
+            <li class="nav-item"><a href="gradient.html" class="nav-link active">Gradients</a></li>
+            <li class="nav-item"><a href="contrast.html" class="nav-link">Contrast</a></li>
+            <li class="nav-item"><a href="saved.html" class="nav-link">Saved</a></li>
+            <li class="nav-item"><a href="guide.html" class="nav-link">Guide</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-right-cluster">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+          </button>
+          <div id="navbarAuthSlot"></div>
+          <a href="saved.html" class="btn btn-primary btn-sm">
+            <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> Workspace
+          </a>
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+            <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link">Generator <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="explorer.html" class="mobile-nav-link">Explorer <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="gradient.html" class="mobile-nav-link active">Gradients <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="contrast.html" class="mobile-nav-link">Contrast & WCAG <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="saved.html" class="mobile-nav-link">Saved Workspace <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+      </ul>
+      <div id="mobileAuthSlot"></div>
+    </div>
+  </header>
+
+  <main class="section-padding" style="padding-top: var(--space-8);">
+    <div class="app-container">
+      
+      <!-- Page Header -->
+      <div class="section-header reveal-on-scroll">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>Multi-Stop CSS Studio</span>
+          </div>
+          <h1 class="section-title">Gradient Studio</h1>
+          <p class="section-subtitle">
+            Engineer smooth visual transitions across linear, radial, and conic geometries with live CSS output.
+          </p>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-secondary btn-sm" id="randomGradientBtn">
+            <i data-lucide="shuffle" style="width: 14px; height: 14px;"></i> Randomize
+          </button>
+          <button class="btn btn-secondary btn-sm" id="saveGradientPaletteBtn">
+            <i data-lucide="bookmark" style="width: 14px; height: 14px;"></i> Save as Palette
+          </button>
+        </div>
+      </div>
+
+      <!-- In-Page Auth Gate Slot (Shown when logged out) -->
+      <div class="auth-gate-slot"></div>
+
+      <div class="auth-protected-area">
+        <!-- Main Gradient Workspace: Controls (Left) + Live Canvas Preview (Right) -->
+        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-8); margin-bottom: var(--space-8);" class="reveal-on-scroll stagger-1">
+        
+        <!-- Left: Control Panels -->
+        <div class="glass-panel" style="padding: var(--space-6);">
+          <!-- Type Selectors -->
+          <div style="display: flex; gap: 8px; margin-bottom: var(--space-6);">
+            <button class="gradient-type-btn active" data-type="linear" onclick="GradientStudio.setGradientType('linear')">Linear</button>
+            <button class="gradient-type-btn" data-type="radial" onclick="GradientStudio.setGradientType('radial')">Radial</button>
+            <button class="gradient-type-btn" data-type="conic" onclick="GradientStudio.setGradientType('conic')">Conic</button>
+          </div>
+
+          <!-- Angle Slider Row -->
+          <div id="angleControlRow" style="display: flex; align-items: center; gap: 14px; margin-bottom: var(--space-6); background: var(--surface-hover); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <i data-lucide="compass" style="width: 18px; height: 18px; color: var(--accent);"></i>
+            <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Angle:</label>
+            <input type="range" min="0" max="360" value="135" id="gradientAngleRange" class="stop-pos-slider" />
+            <span id="gradientAngleValue" style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 700; width: 44px; text-align: right;">135°</span>
+          </div>
+
+          <!-- Color Stops Heading -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-3);">
+            <h3 style="font-size: 1rem; font-weight: 600;">Color Stops</h3>
+            <button class="btn btn-ghost btn-sm" onclick="GradientStudio.addStop()" style="font-size: 0.8rem;">
+              <i data-lucide="plus" style="width: 13px; height: 13px;"></i> Add Stop
+            </button>
+          </div>
+
+          <!-- Stops List -->
+          <div id="gradientStopsList" style="margin-bottom: var(--space-6);">
+            <!-- Rendered by js/gradient.js -->
+          </div>
+
+          <!-- CSS Snippet Output Box -->
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-secondary);">Generated CSS Rule</label>
+              <button class="btn btn-primary btn-sm" id="copyGradientCssBtn" style="padding: 4px 10px; font-size: 0.75rem;">
+                <i data-lucide="copy" style="width: 12px; height: 12px;"></i> Copy CSS
+              </button>
+            </div>
+            <pre class="code-export-pre" style="max-height: 120px; font-size: 0.85rem;"><code id="gradientCssCode">background: linear-gradient(135deg, #6D5EF8 0%, #EC4899 50%, #F59E0B 100%);</code></pre>
+          </div>
+        </div>
+
+        <!-- Right: Live Canvas Preview -->
+        <div style="display: flex; flex-direction: column;">
+          <div class="glass-panel" style="padding: 0; overflow: hidden; height: 100%; min-height: 380px; display: flex; align-items: center; justify-content: center; position: relative;">
+            <div id="gradientLivePreview" style="position: absolute; inset: 0; transition: background 0.2s ease;"></div>
+            
+            <!-- Floating Preview Card Simulation -->
+            <div class="glass-panel" style="position: relative; z-index: 2; padding: var(--space-6); max-width: 320px; backdrop-filter: blur(16px); background: rgba(22, 22, 26, 0.75); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: var(--shadow-lg); text-align: center; color: #FFFFFF;">
+              <div class="user-avatar-circle" style="width: 44px; height: 44px; margin: 0 auto var(--space-3); background: rgba(255,255,255,0.2); color: #fff;">
+                <i data-lucide="sparkles" style="width: 20px; height: 20px;"></i>
+              </div>
+              <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: #fff;">Modern Surface</h4>
+              <p style="font-size: 0.85rem; opacity: 0.85; margin-bottom: var(--space-4);">Real-time rendering against backdrop-filter elements.</p>
+              <button class="btn btn-primary btn-sm" style="width: 100%; border: none; background: #FFFFFF; color: #16161A;">Interactive Preview</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Curated Presets Library -->
+      <div class="reveal-on-scroll stagger-2">
+        <div class="section-header" style="margin-bottom: var(--space-4);">
+          <div>
+            <h2 class="section-title" style="font-size: 1.4rem;">Curated Gradient Styles</h2>
+            <p class="section-subtitle">Click any preset to load its color stops and angle into your active studio.</p>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-4);">
+          
+          <div class="glass-panel" style="cursor: pointer; padding: 0; overflow: hidden;" onclick="GradientStudio.stops = [{color: '#FF0080', pos: 0}, {color: '#7928CA', pos: 100}]; GradientStudio.angle = 135; GradientStudio.render();">
+            <div style="height: 100px; background: linear-gradient(135deg, #FF0080 0%, #7928CA 100%);"></div>
+            <div style="padding: 10px 14px; font-size: 0.85rem; font-weight: 600;">Cyber Neon</div>
+          </div>
+
+          <div class="glass-panel" style="cursor: pointer; padding: 0; overflow: hidden;" onclick="GradientStudio.stops = [{color: '#F59E0B', pos: 0}, {color: '#EC4899', pos: 50}, {color: '#8B5CF6', pos: 100}]; GradientStudio.angle = 90; GradientStudio.render();">
+            <div style="height: 100px; background: linear-gradient(90deg, #F59E0B 0%, #EC4899 50%, #8B5CF6 100%);"></div>
+            <div style="padding: 10px 14px; font-size: 0.85rem; font-weight: 600;">Sunset Horizon</div>
+          </div>
+
+          <div class="glass-panel" style="cursor: pointer; padding: 0; overflow: hidden;" onclick="GradientStudio.stops = [{color: '#10B981', pos: 0}, {color: '#064E3B', pos: 100}]; GradientStudio.angle = 180; GradientStudio.render();">
+            <div style="height: 100px; background: linear-gradient(180deg, #10B981 0%, #064E3B 100%);"></div>
+            <div style="padding: 10px 14px; font-size: 0.85rem; font-weight: 600;">Emerald Depth</div>
+          </div>
+
+          <div class="glass-panel" style="cursor: pointer; padding: 0; overflow: hidden;" onclick="GradientStudio.stops = [{color: '#00C6FF', pos: 0}, {color: '#0072FF', pos: 100}]; GradientStudio.angle = 45; GradientStudio.render();">
+            <div style="height: 100px; background: linear-gradient(45deg, #00C6FF 0%, #0072FF 100%);"></div>
+            <div style="padding: 10px 14px; font-size: 0.85rem; font-weight: 600;">Ocean Breeze</div>
+          </div>
+
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="app-container">
+      <div class="footer-bottom">
+        <div>© 2026 ColorCraft Intelligence. All systems operational.</div>
+        <div class="social-icons-row">
+          <a href="index.html" class="footer-link" style="margin-right: 12px;">Generator</a>
+          <a href="explorer.html" class="footer-link" style="margin-right: 12px;">Explorer</a>
+          <a href="contrast.html" class="footer-link">WCAG Contrast</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/colors.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/gradient.js"></script>
+</body>
+</html>

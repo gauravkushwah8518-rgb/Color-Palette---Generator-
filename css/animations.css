@@ -1,0 +1,194 @@
+/* ColorCraft Animations, Transitions & Scroll Reveal */
+
+/* === SCROLL REVEAL STATES === */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--duration-slow) var(--ease), transform var(--duration-slow) var(--ease);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered Delay Utilities */
+.stagger-1 { transition-delay: 60ms; }
+.stagger-2 { transition-delay: 120ms; }
+.stagger-3 { transition-delay: 180ms; }
+.stagger-4 { transition-delay: 240ms; }
+.stagger-5 { transition-delay: 300ms; }
+.stagger-6 { transition-delay: 360ms; }
+
+/* === KEYFRAME ANIMATIONS === */
+@keyframes toastIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.92);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes swatchColorChange {
+  0% {
+    opacity: 0.5;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.swatch-updating {
+  animation: swatchColorChange 280ms var(--ease-spring);
+}
+
+.glow-animated {
+  animation: pulseGlow 8s infinite ease-in-out;
+}
+
+/* === SUBTLE SLEEK GLOWING CLICK PULSE / RIPPLE EFFECT === */
+@keyframes navButtonGlowClick {
+  0% {
+    box-shadow: 0 0 0 0 rgba(109, 94, 248, 0.4), 0 2px 8px rgba(109, 94, 248, 0.2);
+    transform: scale(0.97);
+  }
+  40% {
+    box-shadow: 0 0 0 4px rgba(109, 94, 248, 0.15), 0 2px 14px rgba(109, 94, 248, 0.2);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: 0 0 0 8px rgba(109, 94, 248, 0), 0 0 0 0 rgba(109, 94, 248, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes navLinkGlowPulse {
+  0% {
+    text-shadow: 0 0 0 rgba(109, 94, 248, 0);
+    transform: scale(0.98);
+  }
+  40% {
+    text-shadow: 0 0 8px rgba(109, 94, 248, 0.3);
+    transform: scale(1.02);
+  }
+  100% {
+    text-shadow: 0 0 0 rgba(109, 94, 248, 0);
+    transform: scale(1);
+  }
+}
+
+@keyframes rippleSpread {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(2.8);
+    opacity: 0;
+  }
+}
+
+.is-glow-clicking {
+  animation: navButtonGlowClick 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  z-index: 10;
+}
+
+.is-glow-clicking-link {
+  animation: navLinkGlowPulse 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+.nav-glow-ripple {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(109, 94, 248, 0.3) 0%, rgba(109, 94, 248, 0.1) 50%, rgba(109, 94, 248, 0) 75%);
+  width: 48px;
+  height: 48px;
+  margin-top: -24px;
+  margin-left: -24px;
+  animation: rippleSpread 400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 1;
+}
+
+/* === ULTRA-SMOOTH PAGE TRANSITIONS === */
+.page-transition-wrapper {
+  will-change: opacity, transform;
+  transition: opacity 200ms cubic-bezier(0.16, 1, 0.3, 1), transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.page-transition-out {
+  opacity: 0 !important;
+  transform: translateY(6px) scale(0.996) !important;
+  pointer-events: none;
+}
+
+.page-transition-in {
+  animation: pageFadeSlideIn 260ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageFadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === ACCESSIBILITY: PREFERS REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .swatch-updating {
+    animation: none !important;
+  }
+}

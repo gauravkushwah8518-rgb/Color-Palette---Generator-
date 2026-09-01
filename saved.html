@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saved Palettes & Dashboard — ColorCraft</title>
+  <meta name="description" content="Manage, tag, search, export, and organize your saved color palettes and design workspaces." />
+  <meta property="og:title" content="Saved Palettes & Dashboard — ColorCraft" />
+  <meta property="og:description" content="Manage, tag, search, export, and organize your saved color palettes and design workspaces." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Theme Script in head -->
+  <script src="js/theme.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="site-navbar" id="siteNavbar">
+    <div class="app-container">
+      <div class="navbar-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon-wrapper">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <span>ColorCraft</span>
+          <span class="logo-tag">Pro</span>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li class="nav-item"><a href="index.html" class="nav-link">Generator</a></li>
+            <li class="nav-item"><a href="explorer.html" class="nav-link">Explorer</a></li>
+            <li class="nav-item"><a href="gradient.html" class="nav-link">Gradients</a></li>
+            <li class="nav-item"><a href="contrast.html" class="nav-link">Contrast</a></li>
+            <li class="nav-item"><a href="saved.html" class="nav-link active">Saved</a></li>
+            <li class="nav-item"><a href="guide.html" class="nav-link">Guide</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-right-cluster">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+          </button>
+          <div id="navbarAuthSlot"></div>
+          <a href="index.html" class="btn btn-primary btn-sm">
+            <i data-lucide="plus" style="width: 14px; height: 14px;"></i> New Palette
+          </a>
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+            <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link">Generator <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="explorer.html" class="mobile-nav-link">Explorer <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="gradient.html" class="mobile-nav-link">Gradients <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="contrast.html" class="mobile-nav-link">Contrast & WCAG <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="saved.html" class="mobile-nav-link active">Saved Workspace <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+      </ul>
+      <div id="mobileAuthSlot"></div>
+    </div>
+  </header>
+
+  <main class="section-padding" style="padding-top: var(--space-8);">
+    <div class="app-container">
+      
+      <!-- In-Page Auth Gate Slot (Shown when logged out) -->
+      <div class="auth-gate-slot"></div>
+
+      <div class="auth-protected-area">
+        <!-- Dashboard User & Stats Hero Banner -->
+        <div class="glass-panel reveal-on-scroll" style="padding: var(--space-6); margin-bottom: var(--space-8); background: linear-gradient(135deg, var(--surface) 0%, var(--surface-hover) 100%);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-4);">
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div class="user-avatar-circle" id="dashboardAvatar" style="width: 52px; height: 52px; font-size: 1.3rem; box-shadow: 0 4px 16px var(--accent-glow);">
+                GK
+              </div>
+              <div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <h1 style="font-size: 1.6rem; font-weight: 700;" id="dashboardGreeting">Palette Workspace & Dashboard</h1>
+                  <span class="icon-card-badge" style="background: var(--accent-light); color: var(--accent);">Pro Cloud</span>
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 2px;">
+                  Organize, search, duplicate, and export your curated interface color systems.
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: center;">
+              <div id="savedCountBadge" class="eyebrow" style="margin: 0; padding: 6px 14px; font-size: 0.8rem;">
+                4 Palettes
+              </div>
+              <a href="index.html" class="btn btn-primary btn-sm">
+                <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i> Generate New
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search, Sort & Tag Filter Controls -->
+        <div class="reveal-on-scroll stagger-1" style="display: flex; flex-direction: column; gap: var(--space-4); margin-bottom: var(--space-6);">
+          <div style="display: flex; gap: var(--space-4); justify-content: space-between; flex-wrap: wrap;">
+            <!-- Search Bar -->
+            <div style="position: relative; flex: 1; min-width: 260px;">
+              <i data-lucide="search" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; color: var(--text-muted);"></i>
+              <input type="text" id="savedSearchInput" class="form-input" placeholder="Search saved palettes by name or color HEX..." style="padding-left: 38px;" />
+            </div>
+
+            <!-- Sort Select -->
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label for="savedSortSelect" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Sort:</label>
+              <select id="savedSortSelect" class="custom-select">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="name">Palette Name (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Tag Filter Pills -->
+          <div id="savedTagsFilter" style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <!-- Rendered by js/saved.js -->
+          </div>
+        </div>
+
+        <!-- Saved Palettes Grid -->
+        <div id="savedPalettesGrid" class="saved-grid reveal-on-scroll stagger-2">
+          <!-- Rendered by js/saved.js -->
+        </div>
+
+        <!-- Empty State View -->
+        <div id="savedEmptyState" class="glass-panel" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-16); text-align: center; margin-top: var(--space-8);">
+          <div class="icon-card-icon" style="width: 56px; height: 56px; margin-bottom: var(--space-4);">
+            <i data-lucide="palette" style="width: 28px; height: 28px;"></i>
+          </div>
+          <h3 style="font-size: 1.35rem; font-weight: 600; margin-bottom: var(--space-2);">No palettes found</h3>
+          <p style="font-size: 0.95rem; color: var(--text-secondary); max-width: 440px; margin-bottom: var(--space-6);">
+            You haven't saved any palettes yet or no palettes matched your current search filters.
+          </p>
+          <a href="index.html" class="btn btn-primary">
+            <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i> Create Your First Palette
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="app-container">
+      <div class="footer-bottom">
+        <div>© 2026 ColorCraft Intelligence. All systems operational.</div>
+        <div class="social-icons-row">
+          <a href="index.html" class="footer-link" style="margin-right: 12px;">Generator</a>
+          <a href="explorer.html" class="footer-link" style="margin-right: 12px;">Explorer</a>
+          <a href="contrast.html" class="footer-link">WCAG Contrast</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/colors.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/saved.js"></script>
+</body>
+</html>

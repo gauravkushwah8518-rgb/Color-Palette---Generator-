@@ -1,0 +1,6 @@
+{
+  "name": "ColorCraft",
+  "description": "Premium AI-inspired color palette generator, gradient studio, contrast analyzer, and color-design workspace.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

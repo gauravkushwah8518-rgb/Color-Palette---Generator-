@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Explorer — ColorCraft</title>
+  <meta name="description" content="Inspect HEX, RGB, HSL, HSV, compute shade and tint ramps, and visualize harmonies on an interactive color wheel." />
+  <meta property="og:title" content="Color Explorer — ColorCraft" />
+  <meta property="og:description" content="Inspect HEX, RGB, HSL, HSV, compute shade and tint ramps, and visualize harmonies on an interactive color wheel." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Theme Script in head -->
+  <script src="js/theme.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="site-navbar" id="siteNavbar">
+    <div class="app-container">
+      <div class="navbar-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon-wrapper">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <span>ColorCraft</span>
+          <span class="logo-tag">Pro</span>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li class="nav-item"><a href="index.html" class="nav-link">Generator</a></li>
+            <li class="nav-item"><a href="explorer.html" class="nav-link active">Explorer</a></li>
+            <li class="nav-item"><a href="gradient.html" class="nav-link">Gradients</a></li>
+            <li class="nav-item"><a href="contrast.html" class="nav-link">Contrast</a></li>
+            <li class="nav-item"><a href="saved.html" class="nav-link">Saved</a></li>
+            <li class="nav-item"><a href="guide.html" class="nav-link">Guide</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-right-cluster">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+          </button>
+          <div id="navbarAuthSlot"></div>
+          <a href="saved.html" class="btn btn-primary btn-sm">
+            <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> Workspace
+          </a>
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+            <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link">Generator <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="explorer.html" class="mobile-nav-link active">Explorer <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="gradient.html" class="mobile-nav-link">Gradients <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="contrast.html" class="mobile-nav-link">Contrast & WCAG <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="saved.html" class="mobile-nav-link">Saved Workspace <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+      </ul>
+      <div id="mobileAuthSlot"></div>
+    </div>
+  </header>
+
+  <main class="section-padding" style="padding-top: var(--space-8);">
+    <div class="app-container">
+      
+      <!-- Page Header -->
+      <div class="section-header reveal-on-scroll">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>Mathematical Color Breakdown</span>
+          </div>
+          <h1 class="section-title">Color Harmony Explorer</h1>
+          <p class="section-subtitle">
+            Pick or enter any color value to analyze channel coordinates, calculated variations, and harmonic relationships.
+          </p>
+        </div>
+      </div>
+
+      <!-- In-Page Auth Gate Slot (Shown when logged out) -->
+      <div class="auth-gate-slot"></div>
+
+      <div class="auth-protected-area">
+        <!-- Top Explorer Grid: Color Picker Box + Canvas Wheel + Value Channels -->
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-6); margin-bottom: var(--space-8);" class="reveal-on-scroll stagger-1">
+        
+        <!-- Left: Live Color Hero & Channel Inputs -->
+        <div class="glass-panel" style="padding: var(--space-6);">
+          <!-- Color Input Bar -->
+          <div style="display: flex; gap: 14px; align-items: center; margin-bottom: var(--space-6);">
+            <input type="color" id="explorerNativePicker" value="#6D5EF8" class="stop-color-input" style="width: 52px; height: 52px;" />
+            <div style="flex: 1;">
+              <label class="form-label" for="explorerHexInput">Active Color HEX</label>
+              <input type="text" id="explorerHexInput" class="form-input" value="#6D5EF8" maxlength="7" style="font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700;" />
+            </div>
+            <button class="btn btn-secondary" onclick="UI.copyToClipboard(Explorer.currentHex)" style="align-self: flex-end; height: 44px;">
+              <i data-lucide="copy" style="width: 14px; height: 14px;"></i> Copy
+            </button>
+          </div>
+
+          <!-- Color Swatch Big Card -->
+          <div id="explorerPreviewBox" style="height: 180px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-4); border: 1px solid var(--border); box-shadow: var(--shadow-md); margin-bottom: var(--space-6);">
+            <div id="explorerHexDisplay" style="font-family: var(--font-mono); font-size: 2rem; font-weight: 700;">#6D5EF8</div>
+            <div id="explorerColorName" style="font-size: 1rem; font-weight: 500; opacity: 0.9;">Violet Aura</div>
+          </div>
+
+          <!-- Channel Stats Grid -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+            <div style="background: var(--surface-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; cursor: pointer;" onclick="UI.copyToClipboard(document.getElementById('valRgb').textContent)">
+              <div style="font-size: 0.725rem; font-weight: 600; color: var(--text-muted);">RGB</div>
+              <div id="valRgb" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-top: 4px;">rgb(109, 94, 248)</div>
+            </div>
+            <div style="background: var(--surface-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; cursor: pointer;" onclick="UI.copyToClipboard(document.getElementById('valHsl').textContent)">
+              <div style="font-size: 0.725rem; font-weight: 600; color: var(--text-muted);">HSL</div>
+              <div id="valHsl" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-top: 4px;">hsl(246°, 92%, 67%)</div>
+            </div>
+            <div style="background: var(--surface-hover); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; cursor: pointer;" onclick="UI.copyToClipboard(document.getElementById('valHsv').textContent)">
+              <div style="font-size: 0.725rem; font-weight: 600; color: var(--text-muted);">HSV</div>
+              <div id="valHsv" style="font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-top: 4px;">hsv(246°, 62%, 97%)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Harmony Spectrogram Wheel Canvas -->
+        <div class="glass-panel" style="padding: var(--space-6); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+          <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 4px;">Interactive Harmony Wheel</h3>
+          <p style="font-size: 0.825rem; color: var(--text-secondary); margin-bottom: 16px;">Visualizing geometric harmony points on the 360° hue circle</p>
+          <canvas id="harmonyWheelCanvas" width="280" height="280" style="max-width: 100%; height: auto;"></canvas>
+        </div>
+      </div>
+
+      <!-- Color Ramp Variations (Shades, Tints, Tones) -->
+      <div class="glass-panel reveal-on-scroll stagger-2" style="padding: var(--space-6); margin-bottom: var(--space-8);">
+        <h3 style="font-size: 1.2rem; font-weight: 600; margin-bottom: var(--space-4);">Tints, Shades & Tone Variations</h3>
+        
+        <div style="margin-bottom: var(--space-4);">
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Tints (Lighter + White)</div>
+          <div class="ramp-container" id="tintsRamp"></div>
+        </div>
+
+        <div style="margin-bottom: var(--space-4);">
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Shades (Darker + Black)</div>
+          <div class="ramp-container" id="shadesRamp"></div>
+        </div>
+
+        <div>
+          <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Tones (Desaturated + Gray)</div>
+          <div class="ramp-container" id="tonesRamp"></div>
+        </div>
+      </div>
+
+      <!-- Computed Harmonies Grid -->
+      <div class="reveal-on-scroll stagger-3">
+        <div class="section-header" style="margin-bottom: var(--space-4);">
+          <div>
+            <h2 class="section-title" style="font-size: 1.5rem;">Calculated Harmonies</h2>
+            <p class="section-subtitle">Cohesive color systems generated directly from your chosen anchor color.</p>
+          </div>
+        </div>
+
+        <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));">
+          <div class="glass-panel" style="padding: var(--space-4);" id="compHarmonyBox"></div>
+          <div class="glass-panel" style="padding: var(--space-4);" id="analogousHarmonyBox"></div>
+          <div class="glass-panel" style="padding: var(--space-4);" id="triadicHarmonyBox"></div>
+          <div class="glass-panel" style="padding: var(--space-4);" id="splitHarmonyBox"></div>
+          <div class="glass-panel" style="padding: var(--space-4);" id="tetradicHarmonyBox"></div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="app-container">
+      <div class="footer-bottom">
+        <div>© 2026 ColorCraft Intelligence. All systems operational.</div>
+        <div class="social-icons-row">
+          <a href="index.html" class="footer-link" style="margin-right: 12px;">Palette Generator</a>
+          <a href="gradient.html" class="footer-link" style="margin-right: 12px;">Gradient Studio</a>
+          <a href="contrast.html" class="footer-link">WCAG Contrast</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/colors.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/explorer.js"></script>
+</body>
+</html>

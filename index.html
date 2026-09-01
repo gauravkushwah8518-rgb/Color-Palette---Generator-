@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ColorCraft — Create colors. Build experiences.</title>
+  <meta name="description" content="Premium AI-inspired color palette generator, gradient studio, contrast analyzer, and color-design workspace." />
+  <meta property="og:title" content="ColorCraft — Create colors. Build experiences." />
+  <meta property="og:description" content="Premium AI-inspired color palette generator, gradient studio, contrast analyzer, and color-design workspace." />
+  <meta property="og:type" content="website" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Theme Script (Immediate in head to prevent FOUC) -->
+  <script src="js/theme.js"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Background Atmosphere Glow -->
+  <div class="bg-glow-container">
+    <div class="hero-glow-blob glow-animated"></div>
+  </div>
+
+  <!-- Sticky Glass Navbar (Section 4 Spec) -->
+  <header class="site-navbar" id="siteNavbar">
+    <div class="app-container">
+      <div class="navbar-inner">
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo" id="brandLogoLink">
+          <div class="brand-icon-wrapper">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <span>ColorCraft</span>
+          <span class="logo-tag">Pro</span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li class="nav-item"><a href="index.html" class="nav-link active" id="navLinkGenerator">Generator</a></li>
+            <li class="nav-item"><a href="explorer.html" class="nav-link" id="navLinkExplorer">Explorer</a></li>
+            <li class="nav-item"><a href="gradient.html" class="nav-link" id="navLinkGradient">Gradients</a></li>
+            <li class="nav-item"><a href="contrast.html" class="nav-link" id="navLinkContrast">Contrast</a></li>
+            <li class="nav-item"><a href="saved.html" class="nav-link" id="navLinkSaved">Saved</a></li>
+            <li class="nav-item"><a href="guide.html" class="nav-link" id="navLinkGuide">Guide</a></li>
+          </ul>
+        </nav>
+
+        <!-- Right Action Cluster -->
+        <div class="nav-right-cluster">
+          <!-- Dark/Light Mode Animated Toggle -->
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle dark/light theme">
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+          </button>
+
+          <!-- Auth User Slot (Dynamic) -->
+          <div id="navbarAuthSlot"></div>
+
+          <!-- Get Started Pill Button -->
+          <a href="saved.html" class="btn btn-primary btn-sm" id="navGetStartedBtn">
+            <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> Workspace
+          </a>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+            <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Slide-Down Glass Drawer -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link active">Generator <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="explorer.html" class="mobile-nav-link">Explorer <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="gradient.html" class="mobile-nav-link">Gradients <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="contrast.html" class="mobile-nav-link">Contrast & WCAG <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="saved.html" class="mobile-nav-link">Saved Workspace <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+      </ul>
+      <div id="mobileAuthSlot"></div>
+      <div style="display: flex; gap: 10px; margin-top: 8px;">
+        <a href="saved.html" class="btn btn-primary" style="flex: 1;">Open Workspace</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION (References A & B pattern) -->
+    <section class="section-padding" style="padding-top: var(--space-12); padding-bottom: var(--space-8); text-align: center;">
+      <div class="app-container">
+        <!-- Eyebrow Tag -->
+        <div class="eyebrow reveal-on-scroll">
+          <span class="eyebrow-dot"></span>
+          <span>Color Intelligence & Harmony Engine</span>
+        </div>
+
+        <!-- Oversized Two-Line Headline -->
+        <h1 class="hero-title reveal-on-scroll stagger-1" id="heroMainHeading">
+          Create colors.<br />
+          <span class="title-accent">Build experiences.</span>
+        </h1>
+
+        <!-- One-Sentence Subtitle -->
+        <p class="section-subtitle reveal-on-scroll stagger-2" style="margin: 0 auto; max-width: 600px;">
+          Generate cohesive palettes with mathematical harmony, test real-time WCAG accessibility contrast, and export production-ready design tokens instantly.
+        </p>
+
+        <!-- Pill-Shaped AI Prompt / Keyword Search Bar -->
+        <div class="hero-search-wrapper reveal-on-scroll stagger-3">
+          <div class="hero-search-pill">
+            <i data-lucide="sparkles" style="width: 18px; height: 18px; color: var(--accent); margin-right: 10px;"></i>
+            <input type="text" id="heroSearchInput" class="hero-search-input" placeholder="Type a vibe or mood (e.g. 'Cyberpunk', 'Nordic Mist', 'Sunset Mirage')..." />
+            <button class="btn btn-primary btn-sm" id="heroSearchBtn">
+              Generate
+            </button>
+          </div>
+
+          <!-- Trending Tags underneath -->
+          <div class="trending-tags-row">
+            <span class="trending-label">Trending:</span>
+            <button class="trending-tag" data-tag="Cyberpunk">Cyberpunk</button>
+            <button class="trending-tag" data-tag="Sunset">Sunset Drift</button>
+            <button class="trending-tag" data-tag="Minimal">Minimal SaaS</button>
+            <button class="trending-tag" data-tag="Forest">Emerald Forest</button>
+            <button class="trending-tag" data-tag="Pastel">Pastel Dream</button>
+            <button class="trending-tag" data-tag="Luxury">Midnight Gold</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REAL INTERACTIVE PALETTE GENERATOR SECTION -->
+    <section class="section-padding-sm" id="generatorSection">
+      <div class="app-container">
+        <!-- In-Page Auth Gate Slot (Shown when logged out) -->
+        <div class="auth-gate-slot"></div>
+
+        <div class="generator-container reveal-on-scroll auth-protected-area">
+          <!-- Toolbar -->
+          <div class="generator-toolbar">
+            <div class="harmony-select-group">
+              <label for="harmonyModeSelect" style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">
+                Harmony:
+              </label>
+              <select id="harmonyModeSelect" class="custom-select" aria-label="Color Harmony Mode">
+                <option value="random">Random (Curated Range)</option>
+                <option value="analogous">Analogous</option>
+                <option value="triadic">Triadic</option>
+                <option value="complementary">Complementary</option>
+                <option value="split">Split-Complementary</option>
+                <option value="tetradic">Tetradic</option>
+                <option value="monochromatic">Monochromatic</option>
+              </select>
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn btn-secondary btn-sm" id="savePaletteBtn">
+                <i data-lucide="bookmark" style="width: 14px; height: 14px;"></i> Save Palette
+              </button>
+              <button class="btn btn-secondary btn-sm" id="exportPaletteBtn">
+                <i data-lucide="code" style="width: 14px; height: 14px;"></i> Export Code
+              </button>
+              <button class="btn btn-primary btn-sm" id="generateBtn">
+                <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i> Generate New Palette
+              </button>
+            </div>
+          </div>
+
+          <!-- 5-Swatch Interactive Grid -->
+          <div class="palette-grid" id="paletteGrid">
+            <!-- Rendered by js/generator.js -->
+          </div>
+
+          <!-- Generator Footer Controls & Keyboard Hint -->
+          <div class="generator-footer-bar">
+            <div class="spacebar-hint">
+              <span class="kbd-badge">SPACE</span>
+              <span>Press Spacebar to instantly regenerate unlocked colors</span>
+            </div>
+
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <a href="explorer.html" class="explore-all-link">
+                Deep Color Exploration <i data-lucide="arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: 4-STEP DESIGN WORKFLOW STRIP (Reference B Pattern) -->
+    <section class="section-padding-sm">
+      <div class="app-container">
+        <div class="section-header reveal-on-scroll">
+          <div>
+            <h2 class="section-title">Design Workflow Engine</h2>
+            <p class="section-subtitle">How professional digital designers and engineers transform color concepts into shipped code.</p>
+          </div>
+        </div>
+
+        <div class="methodology-row reveal-on-scroll stagger-1">
+          <div class="methodology-col">
+            <div class="methodology-step-num">STEP 01</div>
+            <div class="methodology-icon">
+              <i data-lucide="wand-2" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="methodology-title">Algorithmic Seed</div>
+            <div class="methodology-desc">Generate cohesive harmonies bounded by optical luminosity rules rather than random RGB noise.</div>
+          </div>
+
+          <div class="methodology-col">
+            <div class="methodology-step-num">STEP 02</div>
+            <div class="methodology-icon">
+              <i data-lucide="sliders" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="methodology-title">Shade Precision</div>
+            <div class="methodology-desc">Refine individual slots, lock favorites, and explore calculated shades, tints, and tone variations.</div>
+          </div>
+
+          <div class="methodology-col">
+            <div class="methodology-step-num">STEP 03</div>
+            <div class="methodology-icon">
+              <i data-lucide="check-circle-2" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="methodology-title">WCAG Validation</div>
+            <div class="methodology-desc">Verify real-time relative luminance and ensure text passes strict AA and AAA accessibility standards.</div>
+          </div>
+
+          <div class="methodology-col">
+            <div class="methodology-step-num">STEP 04</div>
+            <div class="methodology-icon">
+              <i data-lucide="file-code-2" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div class="methodology-title">Production Export</div>
+            <div class="methodology-desc">Ship directly to Tailwind configurations, CSS custom properties, design tokens, or clean JSON schemas.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: WORKSPACE SUITE CARDS (Reference Card Grid Pattern) -->
+    <section class="section-padding">
+      <div class="app-container">
+        <div class="section-header reveal-on-scroll">
+          <div>
+            <h2 class="section-title">ColorCraft Studio Suite</h2>
+            <p class="section-subtitle">A cohesive set of precision instruments engineered for modern interface creators.</p>
+          </div>
+          <a href="saved.html" class="explore-all-link">Explore Workspace <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="card-grid">
+          <!-- Card 1 -->
+          <a href="explorer.html" class="icon-card reveal-on-scroll stagger-1">
+            <div class="icon-card-icon">
+              <i data-lucide="compass" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="icon-card-title">Color Explorer</h3>
+            <p class="icon-card-subtitle">Inspect HEX, RGB, HSL, and HSV channels with full shade/tint ramps and visual harmony wheels.</p>
+            <span class="icon-card-badge">Precision Math</span>
+          </a>
+
+          <!-- Card 2 -->
+          <a href="gradient.html" class="icon-card reveal-on-scroll stagger-2">
+            <div class="icon-card-icon">
+              <i data-lucide="blend" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="icon-card-title">Gradient Studio</h3>
+            <p class="icon-card-subtitle">Craft linear, radial, and conic gradients with multi-stop position control and instant CSS export.</p>
+            <span class="icon-card-badge">Visual CSS</span>
+          </a>
+
+          <!-- Card 3 -->
+          <a href="contrast.html" class="icon-card reveal-on-scroll stagger-3">
+            <div class="icon-card-icon">
+              <i data-lucide="shield-check" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="icon-card-title">WCAG Contrast</h3>
+            <p class="icon-card-subtitle">Test text legibility against dark and light backgrounds with AA/AAA pass-fail matrix and smart color fixes.</p>
+            <span class="icon-card-badge">Accessibility</span>
+          </a>
+
+          <!-- Card 4 -->
+          <a href="saved.html" class="icon-card reveal-on-scroll stagger-4">
+            <div class="icon-card-icon">
+              <i data-lucide="layout-dashboard" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="icon-card-title">Saved Workspace</h3>
+            <p class="icon-card-subtitle">Organize, rename, tag, search, duplicate, and manage your saved palette collections locally.</p>
+            <span class="icon-card-badge">Dashboard CRUD</span>
+          </a>
+
+          <!-- Card 5 -->
+          <a href="guide.html" class="icon-card reveal-on-scroll stagger-5">
+            <div class="icon-card-icon">
+              <i data-lucide="book-open" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="icon-card-title">Design Guide</h3>
+            <p class="icon-card-subtitle">Interactive masterclass in color theory, UI 60-30-10 distribution rules, and digital psychology.</p>
+            <span class="icon-card-badge">Educational</span>
+          </a>
+
+          <!-- Card 6 -->
+          <div class="icon-card reveal-on-scroll stagger-6" onclick="UI.openExportModal({ name: 'Active System', colors: Generator.colors })" style="cursor: pointer;">
+            <div class="icon-card-icon">
+              <i data-lucide="download" style="width: 22px; height: 22px;"></i>
+            </div>
+            <h3 class="icon-card-title">Multi-Format Export</h3>
+            <p class="icon-card-subtitle">Instantly export to CSS custom properties, Tailwind CSS configurations, and JSON design systems.</p>
+            <span class="icon-card-badge">Developer Ready</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: CALM EDITORIAL CTA BAND (Reference A & B Pattern) -->
+    <section class="app-container">
+      <div class="cta-band reveal-on-scroll">
+        <h2 class="cta-band-title">Your next great interface starts with color.</h2>
+        <p class="cta-band-desc">
+          Zero sign-in barrier, instant local persistence, and production-grade exports ready for your front-end codebase.
+        </p>
+        <div class="cta-band-actions">
+          <button class="btn btn-primary btn-lg" onclick="Generator.generateNewPalette(true); document.getElementById('generatorSection').scrollIntoView({behavior:'smooth'});">
+            <i data-lucide="sparkles" style="width: 18px; height: 18px;"></i> Generate New Palette
+          </button>
+          <a href="saved.html" class="btn btn-secondary btn-lg">
+            <i data-lucide="layout-dashboard" style="width: 18px; height: 18px;"></i> Open Workspace
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MINIMAL 3-COLUMN FOOTER (Reference Pattern) -->
+  <footer class="site-footer">
+    <div class="app-container">
+      <div class="footer-grid">
+        <!-- Brand Column -->
+        <div class="footer-brand">
+          <a href="index.html" class="brand-logo">
+            <div class="brand-icon-wrapper">
+              <div class="brand-icon-inner"></div>
+            </div>
+            <span>ColorCraft</span>
+          </a>
+          <p class="footer-brand-desc">
+            The modern color harmony workspace for engineers, designers, and creative makers building digital experiences.
+          </p>
+        </div>
+
+        <!-- Col 1: Tools -->
+        <div>
+          <div class="footer-col-title">Workspace Tools</div>
+          <ul class="footer-links">
+            <li><a href="index.html" class="footer-link">Palette Generator</a></li>
+            <li><a href="explorer.html" class="footer-link">Harmony Explorer</a></li>
+            <li><a href="gradient.html" class="footer-link">Gradient Studio</a></li>
+            <li><a href="contrast.html" class="footer-link">Contrast Analyzer</a></li>
+            <li><a href="saved.html" class="footer-link">Saved Palettes</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 2: Knowledge -->
+        <div>
+          <div class="footer-col-title">Knowledge</div>
+          <ul class="footer-links">
+            <li><a href="guide.html" class="footer-link">Color Theory 101</a></li>
+            <li><a href="guide.html#rules" class="footer-link">60-30-10 UI Rule</a></li>
+            <li><a href="guide.html#psychology" class="footer-link">Color Psychology</a></li>
+            <li><a href="contrast.html" class="footer-link">WCAG 2.1 Guidelines</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Community & Auth -->
+        <div>
+          <div class="footer-col-title">Account</div>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="Auth.openAuthModal('signup')" class="footer-link">Sign Up Free</a></li>
+            <li><a href="javascript:void(0)" onclick="Auth.openAuthModal('login')" class="footer-link">Sign In</a></li>
+            <li><a href="saved.html" class="footer-link">My Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div>© 2026 ColorCraft Intelligence. All systems operational.</div>
+        <div class="social-icons-row">
+          <a href="https://github.com" target="_blank" rel="noreferrer" class="social-icon-btn" aria-label="GitHub">
+            <i data-lucide="github" style="width: 15px; height: 15px;"></i>
+          </a>
+          <a href="https://twitter.com" target="_blank" rel="noreferrer" class="social-icon-btn" aria-label="Twitter">
+            <i data-lucide="twitter" style="width: 15px; height: 15px;"></i>
+          </a>
+          <a href="https://figma.com" target="_blank" rel="noreferrer" class="social-icon-btn" aria-label="Figma">
+            <i data-lucide="figma" style="width: 15px; height: 15px;"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts Loaded in Explicit Architectural Order -->
+  <script src="js/utils.js"></script>
+  <script src="js/colors.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/generator.js"></script>
+</body>
+</html>

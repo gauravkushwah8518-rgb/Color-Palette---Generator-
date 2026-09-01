@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Theory & Design Guide — ColorCraft</title>
+  <meta name="description" content="Interactive masterclass in color theory, harmony geometry, 60-30-10 UI distribution, and digital psychology." />
+  <meta property="og:title" content="Color Theory & Design Guide — ColorCraft" />
+  <meta property="og:description" content="Interactive masterclass in color theory, harmony geometry, 60-30-10 UI distribution, and digital psychology." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Theme Script in head -->
+  <script src="js/theme.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="site-navbar" id="siteNavbar">
+    <div class="app-container">
+      <div class="navbar-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon-wrapper">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <span>ColorCraft</span>
+          <span class="logo-tag">Pro</span>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li class="nav-item"><a href="index.html" class="nav-link">Generator</a></li>
+            <li class="nav-item"><a href="explorer.html" class="nav-link">Explorer</a></li>
+            <li class="nav-item"><a href="gradient.html" class="nav-link">Gradients</a></li>
+            <li class="nav-item"><a href="contrast.html" class="nav-link">Contrast</a></li>
+            <li class="nav-item"><a href="saved.html" class="nav-link">Saved</a></li>
+            <li class="nav-item"><a href="guide.html" class="nav-link active">Guide</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-right-cluster">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+          </button>
+          <div id="navbarAuthSlot"></div>
+          <a href="saved.html" class="btn btn-primary btn-sm">
+            <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> Workspace
+          </a>
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+            <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link">Generator <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="explorer.html" class="mobile-nav-link">Explorer <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="gradient.html" class="mobile-nav-link">Gradients <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="contrast.html" class="mobile-nav-link">Contrast & WCAG <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="saved.html" class="mobile-nav-link">Saved Workspace <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="guide.html" class="mobile-nav-link active">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+      </ul>
+      <div id="mobileAuthSlot"></div>
+    </div>
+  </header>
+
+  <main class="section-padding" style="padding-top: var(--space-8);">
+    <div class="app-container">
+      
+      <!-- Page Header -->
+      <div class="section-header reveal-on-scroll">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>Interactive Engineering Masterclass</span>
+          </div>
+          <h1 class="section-title">Color Theory & Design Systems Guide</h1>
+          <p class="section-subtitle">
+            Master the mathematics of digital color, UI spatial distribution rules, and psychological resonance.
+          </p>
+        </div>
+      </div>
+
+      <!-- Section 1: Interactive HSL Sandbox -->
+      <div class="glass-panel reveal-on-scroll stagger-1" style="padding: var(--space-8); margin-bottom: var(--space-8);">
+        <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 6px;">1. Understanding the HSL Color Space</h2>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: var(--space-6);">
+          Unlike RGB which mirrors raw hardware subpixels, HSL (Hue, Saturation, Lightness) maps directly to human perception.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: var(--space-6); align-items: center;">
+          <!-- Sliders -->
+          <div>
+            <!-- Hue Slider -->
+            <div style="margin-bottom: var(--space-4);">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Hue (0°–360° Position on wheel)</span>
+                <span id="guideHueVal" style="font-family: var(--font-mono); color: var(--accent);">260°</span>
+              </div>
+              <input type="range" min="0" max="360" value="260" id="guideHueSlider" class="stop-pos-slider" style="width: 100%;" />
+            </div>
+
+            <!-- Saturation Slider -->
+            <div style="margin-bottom: var(--space-4);">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Saturation (0% Gray to 100% Vivid)</span>
+                <span id="guideSatVal" style="font-family: var(--font-mono); color: var(--accent);">85%</span>
+              </div>
+              <input type="range" min="0" max="100" value="85" id="guideSatSlider" class="stop-pos-slider" style="width: 100%;" />
+            </div>
+
+            <!-- Lightness Slider -->
+            <div style="margin-bottom: var(--space-4);">
+              <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px;">
+                <span>Lightness (0% Black to 100% White)</span>
+                <span id="guideLightVal" style="font-family: var(--font-mono); color: var(--accent);">60%</span>
+              </div>
+              <input type="range" min="0" max="100" value="60" id="guideLightSlider" class="stop-pos-slider" style="width: 100%;" />
+            </div>
+          </div>
+
+          <!-- Live Result Swatch -->
+          <div id="guideHslSwatch" style="height: 160px; border-radius: var(--radius-md); display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-4); border: 1px solid var(--border); box-shadow: var(--shadow-md);">
+            <div id="guideHslHexVal" style="font-family: var(--font-mono); font-size: 1.6rem; font-weight: 700;">#7C3AED</div>
+            <div id="guideHslRgbVal" style="font-size: 0.85rem; opacity: 0.9;">rgb(124, 58, 237)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: 60-30-10 UI Rule Simulator -->
+      <div class="glass-panel reveal-on-scroll stagger-2" id="rules" style="padding: var(--space-8); margin-bottom: var(--space-8);">
+        <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 6px;">2. The 60-30-10 UI Hierarchy Rule</h2>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: var(--space-6);">
+          A classic interior and digital design principle that prevents visual noise: <strong>60%</strong> Dominant Neutral Background, <strong>30%</strong> Secondary Typography/Structure, and <strong>10%</strong> High-Impact Accent Color for key calls-to-action.
+        </p>
+
+        <!-- Controls -->
+        <div style="display: flex; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-6);">
+          <div>
+            <label class="form-label">60% Dominant Canvas</label>
+            <input type="color" id="simDomColor" value="#F8FAFC" class="stop-color-input" />
+          </div>
+          <div>
+            <label class="form-label">30% Secondary Typography</label>
+            <input type="color" id="simSecColor" value="#1E293B" class="stop-color-input" />
+          </div>
+          <div>
+            <label class="form-label">10% Accent CTA</label>
+            <input type="color" id="simAccColor" value="#6D5EF8" class="stop-color-input" />
+          </div>
+        </div>
+
+        <!-- Simulated Interface -->
+        <div id="ruleMockScreen" style="padding: var(--space-8); border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-6);">
+            <div class="sim-text" style="font-weight: 700; font-size: 1.1rem;">CloudFlow Analytics</div>
+            <button class="sim-accent" style="padding: 6px 14px; border-radius: var(--radius-full); font-size: 0.8rem; font-weight: 600; border: none; cursor: pointer;">
+              Upgrade Pro
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: var(--space-4);">
+            <div class="sim-card" style="padding: var(--space-6); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+              <h3 class="sim-text" style="font-size: 1.1rem; font-weight: 700; margin-bottom: 6px;">Enterprise Performance</h3>
+              <p class="sim-text" style="font-size: 0.85rem; opacity: 0.8; margin-bottom: var(--space-4); line-height: 1.5;">
+                All metrics operating within 99.98% availability SLA benchmarks across all edge nodes.
+              </p>
+              <button class="sim-accent" style="padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.825rem; font-weight: 600; border: none; cursor: pointer;">
+                Deploy Cluster
+              </button>
+            </div>
+
+            <div class="sim-card" style="padding: var(--space-6); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+              <div class="sim-text" style="font-size: 0.775rem; font-weight: 600; margin-bottom: 4px;">ACTIVE SESSIONS</div>
+              <div class="sim-accent" style="display: inline-block; padding: 4px 10px; border-radius: var(--radius-xs); font-family: var(--font-mono); font-size: 1.2rem; font-weight: 700;">
+                14,820
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3: Digital Color Psychology -->
+      <div class="glass-panel reveal-on-scroll stagger-3" id="psychology" style="padding: var(--space-8); margin-bottom: var(--space-8);">
+        <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 6px;">3. Digital Color Psychology</h2>
+        <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: var(--space-6);">
+          Select a brand archetype to inspect recommended hues, psychological triggers, and optimal industry applications.
+        </p>
+
+        <!-- Mood Selector Buttons -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: var(--space-6);">
+          <button class="psychology-mood-btn active" data-mood="trust">Trust & Security</button>
+          <button class="psychology-mood-btn" data-mood="growth">Growth & Health</button>
+          <button class="psychology-mood-btn" data-mood="energy">Energy & Warmth</button>
+          <button class="psychology-mood-btn" data-mood="luxury">Luxury & Wisdom</button>
+          <button class="psychology-mood-btn" data-mood="bold">Bold & Urgency</button>
+        </div>
+
+        <!-- Psychology Card Preview -->
+        <div style="display: grid; grid-template-columns: 140px 1fr; gap: var(--space-6); background: var(--surface-hover); padding: var(--space-6); border-radius: var(--radius-md); border: 1px solid var(--border);">
+          <div id="psychologySwatch" style="height: 140px; border-radius: var(--radius-sm); background-color: #2563EB; display: flex; align-items: center; justify-content: center; color: #FFFFFF; font-weight: 700; font-family: var(--font-mono);">
+            #2563EB
+          </div>
+          <div>
+            <h3 id="psychologyTitle" style="font-size: 1.2rem; font-weight: 700; margin-bottom: 6px;">Trust & Security — Electric Cobalt (#2563EB)</h3>
+            <p id="psychologyDesc" style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: var(--space-4);">
+              Fintech, SaaS platforms, healthcare, legal interfaces
+            </p>
+            <div id="psychologyTags" style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <span class="saved-tag-badge">Security</span>
+              <span class="saved-tag-badge">Corporate Reliability</span>
+              <span class="saved-tag-badge">Clarity</span>
+              <span class="saved-tag-badge">Intelligence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="app-container">
+      <div class="footer-bottom">
+        <div>© 2026 ColorCraft Intelligence. All systems operational.</div>
+        <div class="social-icons-row">
+          <a href="index.html" class="footer-link" style="margin-right: 12px;">Generator</a>
+          <a href="explorer.html" class="footer-link" style="margin-right: 12px;">Explorer</a>
+          <a href="contrast.html" class="footer-link">WCAG Contrast</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/colors.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/guide.js"></script>
+</body>
+</html>

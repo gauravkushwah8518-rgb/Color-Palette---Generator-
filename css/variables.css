@@ -1,0 +1,124 @@
+/* ColorCraft Design Tokens & Theme Variables — Sleek Interface Theme */
+:root {
+  /* Sleek Interface Light Theme (Default) */
+  --background: #FAFAF9;
+  --surface: #FFFFFF;
+  --surface-hover: #F3F3F1;
+  --surface-elevated: #FFFFFF;
+  --text-primary: #16161A;
+  --text-secondary: #6B6B73;
+  --text-muted: #9E9EA7;
+  --border: rgba(22, 22, 26, 0.08);
+  --border-subtle: rgba(22, 22, 26, 0.05);
+  --border-hover: rgba(22, 22, 26, 0.16);
+  --border-focus: rgba(109, 94, 248, 0.45);
+  
+  --accent: #6D5EF8;
+  --accent-hover: #5B4AE3;
+  --accent-light: rgba(109, 94, 248, 0.08);
+  --accent-contrast: #FFFFFF;
+  --accent-glow: rgba(109, 94, 248, 0.18);
+
+  --accent-pink: #F472B6;
+  --accent-gold: #FBBF24;
+  --accent-mint: #34D399;
+  --accent-ink: #16161A;
+
+  --navbar-bg-top: rgba(250, 250, 249, 0.85);
+  --navbar-bg-scrolled: rgba(255, 255, 255, 0.88);
+  --navbar-shadow: 0 4px 20px -2px rgba(22, 22, 26, 0.05);
+
+  --card-bg: #FFFFFF;
+  --card-bg-hover: #FAFAF9;
+  --card-border: rgba(22, 22, 26, 0.06);
+  
+  --modal-bg: rgba(255, 255, 255, 0.96);
+  --modal-backdrop: rgba(22, 22, 26, 0.4);
+  --toast-bg: #16161A;
+  --toast-text: #FFFFFF;
+  
+  --badge-bg: rgba(22, 22, 26, 0.05);
+  --badge-text: #6B6B73;
+
+  --success: #10B981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --warning: #F59E0B;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --danger: #EF4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+
+  /* Sleek Interface Scale */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 450ms;
+
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+  
+  --shadow-sm: 0 1px 2px rgba(22, 22, 26, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(22, 22, 26, 0.05), 0 2px 4px rgba(22, 22, 26, 0.02);
+  --shadow-lg: 0 12px 28px -4px rgba(22, 22, 26, 0.08), 0 4px 8px rgba(22, 22, 26, 0.02);
+  --shadow-hover: 0 16px 36px -6px rgba(22, 22, 26, 0.1), 0 6px 12px rgba(22, 22, 26, 0.03);
+}
+
+[data-theme="dark"] {
+  /* Sleek Interface Dark Theme */
+  --background: #0E0E12;
+  --surface: #16161A;
+  --surface-hover: #1E1E24;
+  --surface-elevated: #1A1A20;
+  --text-primary: #FAFAF9;
+  --text-secondary: #9E9EA7;
+  --text-muted: #6B6B76;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-hover: rgba(255, 255, 255, 0.16);
+  --border-focus: rgba(139, 124, 255, 0.55);
+
+  --accent: #7B6DF9;
+  --accent-hover: #8F83FF;
+  --accent-light: rgba(123, 109, 249, 0.12);
+  --accent-contrast: #FFFFFF;
+  --accent-glow: rgba(123, 109, 249, 0.25);
+
+  --navbar-bg-top: rgba(14, 14, 18, 0.85);
+  --navbar-bg-scrolled: rgba(22, 22, 26, 0.88);
+  --navbar-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+
+  --card-bg: #16161A;
+  --card-bg-hover: #1C1C22;
+  --card-border: rgba(255, 255, 255, 0.06);
+
+  --modal-bg: rgba(22, 22, 26, 0.96);
+  --modal-backdrop: rgba(0, 0, 0, 0.75);
+  --toast-bg: #FAFAF9;
+  --toast-text: #16161A;
+
+  --badge-bg: rgba(255, 255, 255, 0.06);
+  --badge-text: #9E9EA7;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
+  --shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.7);
+}

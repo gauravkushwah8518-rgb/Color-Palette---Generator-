@@ -1,0 +1,212 @@
+/* ColorCraft Global Reset & Base Typography */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  transition: background-color var(--duration-base) var(--ease), color var(--duration-base) var(--ease);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Atmosphere Glows */
+.bg-glow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 700px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-glow-blob {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 680px;
+  height: 480px;
+  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(109, 94, 248, 0) 70%);
+  filter: blur(80px);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--text-primary);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5.5vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+}
+
+.hero-title .title-accent {
+  display: block;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--text-secondary);
+  background: none;
+  -webkit-background-clip: unset;
+  -webkit-text-fill-color: unset;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin-bottom: var(--space-2);
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  max-width: 580px;
+  line-height: 1.6;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-8);
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-3);
+  padding: 4px 10px;
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+}
+
+.eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+}
+
+p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, select, textarea {
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+/* Layout Containers */
+.app-container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  position: relative;
+  z-index: 1;
+}
+
+.section-padding {
+  padding: var(--space-16) 0;
+}
+
+.section-padding-sm {
+  padding: var(--space-12) 0;
+}
+
+/* Explore All text link styled after Reference B */
+.explore-all-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  transition: transform var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease);
+}
+
+.explore-all-link:hover {
+  color: var(--accent-hover);
+  transform: translateX(4px);
+}
+
+.explore-all-link svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--duration-fast) var(--ease);
+}
+
+.explore-all-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* Glass Surface utility */
+.glass-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-base) var(--ease);
+}
+
+/* Accessibility Outlines */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

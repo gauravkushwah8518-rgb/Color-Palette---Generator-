@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WCAG Contrast Analyzer — ColorCraft</title>
+  <meta name="description" content="Validate color contrast ratios against WCAG 2.1 AA and AAA standards with live UI simulations and accessible fix suggestions." />
+  <meta property="og:title" content="WCAG Contrast Analyzer — ColorCraft" />
+  <meta property="og:description" content="Validate color contrast ratios against WCAG 2.1 AA and AAA standards with live UI simulations and accessible fix suggestions." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/navbar.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Theme Script in head -->
+  <script src="js/theme.js"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Sticky Navbar -->
+  <header class="site-navbar" id="siteNavbar">
+    <div class="app-container">
+      <div class="navbar-inner">
+        <a href="index.html" class="brand-logo">
+          <div class="brand-icon-wrapper">
+            <div class="brand-icon-inner"></div>
+          </div>
+          <span>ColorCraft</span>
+          <span class="logo-tag">Pro</span>
+        </a>
+
+        <nav aria-label="Main Navigation">
+          <ul class="nav-links">
+            <li class="nav-item"><a href="index.html" class="nav-link">Generator</a></li>
+            <li class="nav-item"><a href="explorer.html" class="nav-link">Explorer</a></li>
+            <li class="nav-item"><a href="gradient.html" class="nav-link">Gradients</a></li>
+            <li class="nav-item"><a href="contrast.html" class="nav-link active">Contrast</a></li>
+            <li class="nav-item"><a href="saved.html" class="nav-link">Saved</a></li>
+            <li class="nav-item"><a href="guide.html" class="nav-link">Guide</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-right-cluster">
+          <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle theme">
+            <i data-lucide="sun" class="theme-icon-sun"></i>
+            <i data-lucide="moon" class="theme-icon-moon"></i>
+          </button>
+          <div id="navbarAuthSlot"></div>
+          <a href="saved.html" class="btn btn-primary btn-sm">
+            <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> Workspace
+          </a>
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+            <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav-panel" id="mobileNavPanel">
+      <ul class="mobile-nav-links">
+        <li><a href="index.html" class="mobile-nav-link">Generator <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="explorer.html" class="mobile-nav-link">Explorer <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="gradient.html" class="mobile-nav-link">Gradients <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="contrast.html" class="mobile-nav-link active">Contrast & WCAG <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="saved.html" class="mobile-nav-link">Saved Workspace <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+        <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
+      </ul>
+      <div id="mobileAuthSlot"></div>
+    </div>
+  </header>
+
+  <main class="section-padding" style="padding-top: var(--space-8);">
+    <div class="app-container">
+      
+      <!-- Page Header -->
+      <div class="section-header reveal-on-scroll">
+        <div>
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            <span>WCAG 2.1 Relative Luminance Matrix</span>
+          </div>
+          <h1 class="section-title">Contrast & Accessibility Analyzer</h1>
+          <p class="section-subtitle">
+            Validate foreground text readability against backgrounds with real-time AA/AAA compliance scoring and live UI previews.
+          </p>
+        </div>
+      </div>
+
+      <!-- In-Page Auth Gate Slot (Shown when logged out) -->
+      <div class="auth-gate-slot"></div>
+
+      <div class="auth-protected-area">
+        <!-- Main Contrast Analyzer Grid: Left Controls & Scores, Right Simulation -->
+        <div style="display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-8); margin-bottom: var(--space-8);" class="reveal-on-scroll stagger-1">
+        
+        <!-- Left: Pickers & Score Badges -->
+        <div>
+          <!-- Color Pickers Card -->
+          <div class="glass-panel" style="padding: var(--space-6); margin-bottom: var(--space-6);">
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: var(--space-4); align-items: center; margin-bottom: var(--space-6);">
+              <!-- Text Color -->
+              <div>
+                <label class="form-label" for="contrastFgInput">Text Color (Foreground)</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="color" id="contrastFgPicker" value="#16161A" class="stop-color-input" />
+                  <input type="text" id="contrastFgInput" class="form-input" value="#16161A" maxlength="7" style="font-family: var(--font-mono); font-weight: 700;" />
+                </div>
+              </div>
+
+              <!-- Swap Button -->
+              <button class="btn-icon-only" id="contrastSwapBtn" title="Swap Colors" style="margin-top: 20px;">
+                <i data-lucide="arrow-left-right" style="width: 16px; height: 16px;"></i>
+              </button>
+
+              <!-- Background Color -->
+              <div>
+                <label class="form-label" for="contrastBgInput">Background Color</label>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <input type="color" id="contrastBgPicker" value="#FFFFFF" class="stop-color-input" />
+                  <input type="text" id="contrastBgInput" class="form-input" value="#FFFFFF" maxlength="7" style="font-family: var(--font-mono); font-weight: 700;" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Big Ratio Banner -->
+            <div style="display: flex; justify-content: space-between; align-items: center; background: var(--surface-hover); padding: var(--space-4) var(--space-6); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+              <div>
+                <div style="font-size: 0.775rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Contrast Ratio</div>
+                <div id="contrastRatioNumber" style="font-family: var(--font-mono); font-size: 2.2rem; font-weight: 700; color: var(--text-primary);">
+                  17.80 : 1
+                </div>
+              </div>
+              <div id="contrastOverallRating">
+                <!-- Tag updated by js/contrast.js -->
+              </div>
+            </div>
+          </div>
+
+          <!-- 4-Box WCAG Scoring Matrix -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-6);">
+            <div id="badgeAaNormal"></div>
+            <div id="badgeAaLarge"></div>
+            <div id="badgeAaaNormal"></div>
+            <div id="badgeAaaLarge"></div>
+          </div>
+
+          <!-- Accessible Suggestions Box -->
+          <div id="contrastSuggestions"></div>
+        </div>
+
+        <!-- Right: Live UI Simulation Canvas -->
+        <div>
+          <div class="glass-panel" style="padding: var(--space-6); height: 100%;">
+            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: var(--space-4);">Live Interface Simulation</h3>
+            
+            <!-- Target Preview Container -->
+            <div id="contrastLiveArea" style="padding: var(--space-6); border-radius: var(--radius-md); border: 1px solid var(--border); transition: all 0.2s ease;">
+              <h2 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px;">Accessible Design Heading</h2>
+              <p style="font-size: 0.925rem; line-height: 1.6; margin-bottom: var(--space-4); opacity: 0.9;">
+                Good design is obvious. Great design is transparent. Ensure every reader can perceive and comprehend critical content without eye fatigue.
+              </p>
+              
+              <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: var(--space-4);">
+                <button class="contrast-mock-btn" style="padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600; border: none; cursor: pointer;">
+                  Primary Action
+                </button>
+                <button class="contrast-mock-outline" style="padding: 8px 18px; border-radius: var(--radius-full); font-size: 0.85rem; font-weight: 600; background: transparent; border: 1px solid currentColor; cursor: pointer;">
+                  Secondary Outline
+                </button>
+              </div>
+
+              <div style="font-size: 0.775rem; opacity: 0.75; font-family: var(--font-mono);">
+                Small caption text (13px) rendered with active foreground.
+              </div>
+            </div>
+
+            <!-- Guidelines Info -->
+            <div style="margin-top: var(--space-6); font-size: 0.825rem; color: var(--text-secondary); line-height: 1.6;">
+              <strong>WCAG 2.1 Rule of Thumb:</strong><br />
+              • Level AA requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (18pt / 24px or 14pt / 18.6px bold).<br />
+              • Level AAA requires at least 7:1 for normal text and 4.5:1 for large text.
+            </div>
+          </div>
+        </div>
+
+      </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="app-container">
+      <div class="footer-bottom">
+        <div>© 2026 ColorCraft Intelligence. All systems operational.</div>
+        <div class="social-icons-row">
+          <a href="index.html" class="footer-link" style="margin-right: 12px;">Generator</a>
+          <a href="explorer.html" class="footer-link" style="margin-right: 12px;">Explorer</a>
+          <a href="gradient.html" class="footer-link">Gradient Studio</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/colors.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/contrast.js"></script>
+</body>
+</html>
