@@ -19,3 +19,4 @@ View your app in AI Studio: https://ai.studio/apps/fe53e62f-ea6a-4bdf-a6e7-3cc80
 3. Run the app:
    `npm run dev`
 # Color-Palette---Generator-
+# Color-Palette---Generator-
