@@ -1,24 +1,51 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# 🎨 Color Palette Generator
 
-# Run and deploy your AI Studio app
+A simple and easy-to-use Color Palette Generator that helps you create beautiful random color palettes.
 
-This contains everything you need to run your app locally.
+## ✨ Features
 
-View your app in AI Studio: https://ai.studio/apps/fe53e62f-ea6a-4bdf-a6e7-3cc80f815809
+- 🎨 Generate random color palettes
+- 📋 Copy color codes easily
+- 🔄 Generate new palettes with one click
+- 💻 Simple and responsive UI
+- 🌈 Supports HEX color codes
 
-## Run Locally
+## 🛠️ Technologies Used
 
-**Prerequisites:**  Node.js
+- HTML
+- CSS
+- JavaScript
 
+## 📁 Project Structure
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
-# Color-Palette---Generator-
-# Color-Palette---Generator-
-# Color-Palette---Generator-
-# Color-Palette---Generator-
+```text
+colorcraft-generator/
+│
+├── 📁 css/
+│   └── Stylesheets
+│
+├── 📁 js/
+│   └── JavaScript files
+│
+├── 📁 public/
+│   └── Public assets
+│
+├── 📁 src/
+│   └── Source files
+│
+├── 📄 .env.example
+├── 📄 .gitignore
+├── 📄 contrast.html
+├── 📄 explorer.html
+├── 📄 gradient.html
+├── 📄 guide.html
+├── 📄 index.html
+├── 📄 metadata.json
+├── 📄 package.json
+├── 📄 README.md
+├── 📄 saved.html
+├── 📄 tsconfig.json
+└── 📄 vite.config.ts
+
+            ### 🎨 Color Palette Generator
+
