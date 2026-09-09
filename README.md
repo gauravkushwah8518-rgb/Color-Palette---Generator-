@@ -128,5 +128,6 @@ If you would like to improve this project:
 
 This project is open-source and available for learning and personal use.
 
+        this is colourful Genrator
 
 If you found this project useful, consider giving the repository a ⭐ on GitHub!
