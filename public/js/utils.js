@@ -36,7 +36,22 @@ const Utils = {
 
   // Unique ID generator
   generateId() {
-    return 'cc_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 6);
+    return 'cc_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 8);
+  },
+
+  // Escape user-provided strings before inserting into innerHTML (XSS protection)
+  escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  },
+
+  // Escape a string for safe use inside a single-quoted JS/HTML attribute
+  escapeAttr(value) {
+    return this.escapeHtml(value).replace(/`/g, '&#96;');
   },
 
   // Safe localStorage helper

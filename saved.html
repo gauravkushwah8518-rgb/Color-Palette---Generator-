@@ -7,6 +7,14 @@
   <meta name="description" content="Manage, tag, search, export, and organize your saved color palettes and design workspaces." />
   <meta property="og:title" content="Saved Palettes & Dashboard — ColorCraft" />
   <meta property="og:description" content="Manage, tag, search, export, and organize your saved color palettes and design workspaces." />
+  <meta property="og:image" content="assets/logo-512.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#0E0E12" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="128x128" href="assets/logo-128.png" />
+  <link rel="apple-touch-icon" href="assets/logo-128.png" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,11 +28,12 @@
   <link rel="stylesheet" href="css/components.css" />
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/effects.css" />
 
   <!-- Theme Script in head -->
   <script src="js/theme.js"></script>
   <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="vendor/lucide.min.js"></script>
 </head>
 <body>
 
@@ -34,7 +43,7 @@
       <div class="navbar-inner">
         <a href="index.html" class="brand-logo">
           <div class="brand-icon-wrapper">
-            <div class="brand-icon-inner"></div>
+            <img src="assets/logo-128.png" alt="ColorCraft logo" class="brand-logo-img" draggable="false" />
           </div>
           <span>ColorCraft</span>
           <span class="logo-tag">Pro</span>

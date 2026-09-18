@@ -124,8 +124,8 @@ const SavedManager = {
           <!-- Palette Swatches Strip -->
           <div class="saved-swatches-strip">
             ${colors.map(c => `
-              <div class="saved-swatch-bar" style="background-color: ${c};" onclick="UI.copyToClipboard('${c}', 'Copied ${c}')" title="Click to copy ${c}">
-                <span class="saved-swatch-hex" style="color: ${ColorEngine.getReadableTextColor(c)};">${c}</span>
+              <div class="saved-swatch-bar" style="background-color: ${Utils.escapeAttr(c)};" onclick="UI.copyToClipboard('${Utils.escapeAttr(c)}', 'Copied ${Utils.escapeAttr(c)}')" title="Click to copy ${Utils.escapeAttr(c)}">
+                <span class="saved-swatch-hex" style="color: ${ColorEngine.getReadableTextColor(c)};">${Utils.escapeHtml(c)}</span>
               </div>
             `).join('')}
           </div>
@@ -134,8 +134,8 @@ const SavedManager = {
           <div class="saved-card-body">
             <div class="saved-card-header">
               <div class="saved-title-wrap">
-                <input type="text" class="saved-palette-rename-input" value="${palette.name}" 
-                       onchange="SavedManager.renamePalette('${palette.id}', this.value)" 
+                <input type="text" class="saved-palette-rename-input" value="${Utils.escapeAttr(palette.name)}" 
+                       onchange="SavedManager.renamePalette('${Utils.escapeAttr(palette.id)}', this.value)" 
                        title="Click to rename palette" />
                 <div class="saved-meta-line">
                   <span>${timeStr}</span>
@@ -147,7 +147,7 @@ const SavedManager = {
 
             <!-- Tags -->
             <div class="saved-tags-row">
-              ${tags.map(t => `<span class="saved-tag-badge">${t}</span>`).join('')}
+              ${tags.map(t => `<span class="saved-tag-badge">${Utils.escapeHtml(t)}</span>`).join('')}
             </div>
 
             <!-- Action Toolbar -->
@@ -189,8 +189,8 @@ const SavedManager = {
 
     this.tagsContainer.innerHTML = Array.from(allTags).map(tag => `
       <button class="tag-filter-btn ${this.activeFilterTag === tag ? 'active' : ''}" 
-              onclick="SavedManager.setTagFilter('${tag}')">
-        ${tag === 'all' ? 'All Palettes' : tag}
+              onclick="SavedManager.setTagFilter('${Utils.escapeAttr(tag)}')">
+        ${tag === 'all' ? 'All Palettes' : Utils.escapeHtml(tag)}
       </button>
     `).join('');
   },
@@ -255,7 +255,7 @@ const SavedManager = {
             </button>
           </div>
           <div class="modal-body">
-            <p>Are you sure you want to delete <strong>"${p.name}"</strong>? This action cannot be undone.</p>
+            <p>Are you sure you want to delete <strong>"${Utils.escapeHtml(p.name)}"</strong>? This action cannot be undone.</p>
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary btn-sm" onclick="UI.closeModal('deleteConfirmModal')">Cancel</button>

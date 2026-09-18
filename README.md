@@ -1,133 +1,87 @@
-# 🎨 Color Palette Generator
+# 🎨 ColorCraft — Color Palette Generator
 
-A modern and interactive **Color Palette Generator** that helps you create, explore, save, and work with beautiful color palettes. The project also includes tools for gradients, color contrast, and color-related guidance.
+A premium **color palette generator** with a gradient studio, WCAG contrast analyzer, color explorer, and a saved-palette workspace. Built with vanilla JS + Vite, no framework needed.
+
+![ColorCraft Logo](public/assets/logo-128.png)
 
 ## ✨ Features
 
-* 🎨 **Random Color Palette Generator** — Generate beautiful color palettes instantly.
-* 📋 **Copy Color Codes** — Easily copy HEX color codes.
-* 🔄 **Generate New Palettes** — Create a new palette with a single click.
-* 💾 **Save Palettes** — Save your favorite color palettes for later use.
-* 🌈 **Gradient Generator** — Create and experiment with custom gradients.
-* 🔍 **Color Explorer** — Explore different colors and their values.
-* ♿ **Contrast Checker** — Check color contrast for better accessibility.
-* 📖 **Color Guide** — Learn about colors and their usage.
-* 💻 **Responsive Design** — Works smoothly across different screen sizes.
-* ⚡ **Fast & Interactive UI** — Simple and easy-to-use interface.
+- 🎨 **Palette Generator** — Random, analogous, triadic, complementary, split-complementary, tetradic, and monochromatic harmonies
+- 🔒 **Lock & Edit** — Lock favorite swatches, fine-tune individual colors with a native picker + shade ramp
+- ⌨️ **Spacebar Reroll** — Press `SPACE` to instantly regenerate unlocked colors
+- 🌈 **Gradient Studio** — Linear, radial, and conic gradients with multi-stop control
+- 🔍 **Color Explorer** — HEX / RGB / HSL / HSV inspection with shade, tint, and tone ramps
+- ♿ **WCAG Contrast Analyzer** — Real-time AA/AAA pass-fail with smart color fix suggestions
+- 💾 **Saved Workspace** — Tag, search, rename, duplicate, and export saved palettes
+- 📤 **Multi-format Export** — CSS variables, Tailwind config, JSON design tokens, and HEX lists
+- 🌗 **Dark / Light Theme** — Animated toggle with system-preference detection
+- 📱 **Fully Responsive** — Works smoothly across phones, tablets, and desktops
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack
 
-* **HTML5** — Page structure
-* **CSS3** — Styling and responsive design
-* **JavaScript** — Application logic and interactivity
-* **Vite** — Development and build tool
+- **HTML5 + CSS3 + Vanilla JavaScript** — no framework
+- **Vite** — dev server & production bundler
+- **Vitest** — unit testing for the color engine
+- **Lucide Icons** — self-hosted, no CDN dependency
 
 ## 📁 Project Structure
 
 ```text
 colorcraft-generator/
-│
-├── 📁 css/
-│   └── Stylesheets
-│
-├── 📁 js/
-│   └── JavaScript files
-│
-├── 📁 public/
-│   └── Public assets
-│
-├── 📁 src/
-│   └── Source files
-│
-├── 📄 .env.example
-├── 📄 .gitignore
-├── 📄 contrast.html
-├── 📄 explorer.html
-├── 📄 gradient.html
-├── 📄 guide.html
-├── 📄 index.html
-├── 📄 metadata.json
-├── 📄 package.json
-├── 📄 README.md
-├── 📄 saved.html
-├── 📄 tsconfig.json
-└── 📄 vite.config.ts
+├── public/
+│   ├── assets/          # Logo & brand images
+│   ├── css/             # Stylesheets (variables, components, effects…)
+│   ├── js/              # App logic (generator, auth, router, colors…)
+│   ├── vendor/          # Vendored third-party libs (lucide)
+│   └── favicon.svg
+├── tests/               # Vitest unit tests
+├── index.html           # Main generator page
+├── explorer.html        # Color explorer
+├── gradient.html        # Gradient studio
+├── contrast.html        # WCAG contrast analyzer
+├── saved.html           # Saved palettes dashboard
+├── guide.html           # Color theory guide
+├── vite.config.ts
+└── package.json
 ```
 
 ## 🚀 Getting Started
 
-### 1. Clone the Repository
-
 ```bash
-git clone https://github.com/your-username/colorcraft-generator.git
-```
-
-### 2. Navigate to the Project
-
-```bash
+# 1. Clone the repository
+git clone <your-repo-url>
 cd colorcraft-generator
-```
 
-### 3. Install Dependencies
-
-```bash
+# 2. Install dependencies
 npm install
+
+# 3. Start the dev server
+npm run dev
+
+# 4. Build for production
+npm run build
+
+# 5. Preview the production build
+npm run preview
+
+# Run tests & typecheck
+npm test
+npm run lint
 ```
 
-### 4. Start the Development Server
+## 🧪 Testing
+
+The color math engine (HEX/RGB/HSL conversions, WCAG contrast, harmony algorithms) is covered by unit tests:
 
 ```bash
-npm run dev
+npm test        # run once
+npm run test:watch  # watch mode
 ```
 
-Open the local development URL provided by Vite in your browser.
+## 🔐 Notes on Auth
 
-## 🎯 How to Use
-
-1. Open the **Color Palette Generator**.
-2. Generate a random color palette.
-3. Copy any HEX color code you want to use.
-4. Save your favorite palettes.
-5. Use the **Gradient Generator** to create gradients.
-6. Explore colors using the **Color Explorer**.
-7. Use the **Contrast Checker** to check color combinations.
-8. Visit the **Color Guide** to learn more about colors.
-
-## 📸 Preview
-
-Add your project screenshot here:
-
-```markdown
-![Color Palette Generator Preview](screenshot.png)
-```
-
-## 🌟 Future Improvements
-
-* Add RGB, HSL, and other color formats
-* Export palettes as images
-* Share palettes using a unique link
-* Add more advanced gradient controls
-* Add color history
-* Improve palette customization
-* Add additional accessibility tools
-
-## 🤝 Contributing
-
-Contributions are welcome!
-
-If you would like to improve this project:
-
-1. Fork the repository
-2. Create a new branch
-3. Make your changes
-4. Commit your changes
-5. Push the branch
-6. Create a Pull Request
+The sign-in flow is a **local demo** — accounts are stored in your browser's `localStorage` only. No data ever leaves your device. Don't reuse a real password here.
 
 ## 📄 License
 
 This project is open-source and available for learning and personal use.
-
-        this is colourful Genrator
-
-If you found this project useful, consider giving the repository a ⭐ on GitHub!

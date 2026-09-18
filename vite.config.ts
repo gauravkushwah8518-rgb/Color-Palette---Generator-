@@ -3,11 +3,8 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, '.'),
-      },
-    },
+    // Site root is the project root: static HTML pages live at the top level,
+    // while public/ provides js/, css/, vendor/, assets/ and favicon (copied to dist as-is).
     build: {
       rollupOptions: {
         input: {

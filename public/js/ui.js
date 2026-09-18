@@ -15,14 +15,17 @@ const UI = {
     const toast = document.createElement('div');
     toast.className = 'toast';
 
-    let iconHtml = `<i data-lucide="${iconName}" style="width: 16px; height: 16px;"></i>`;
-    if (colorHex) {
-      iconHtml = `<span class="toast-swatch-dot" style="background-color: ${colorHex};"></span>`;
+    const safeMessage = Utils.escapeHtml(message);
+    const safeColor = colorHex ? Utils.escapeAttr(colorHex) : null;
+
+    let iconHtml = `<i data-lucide="${Utils.escapeAttr(iconName)}" style="width: 16px; height: 16px;"></i>`;
+    if (safeColor) {
+      iconHtml = `<span class="toast-swatch-dot" style="background-color: ${safeColor};"></span>`;
     }
 
     toast.innerHTML = `
       ${iconHtml}
-      <span>${message}</span>
+      <span>${safeMessage}</span>
     `;
 
     container.appendChild(toast);
@@ -145,7 +148,7 @@ const UI = {
             <div>
               <h3 class="modal-title">Export Palette</h3>
               <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 2px;">
-                Export <strong>${name}</strong> into your production workflow
+                Export <strong>${Utils.escapeHtml(name)}</strong> into your production workflow
               </p>
             </div>
             <button class="btn-icon-only modal-close-btn" onclick="UI.closeModal('exportModal')">
@@ -253,7 +256,7 @@ const UI = {
 
               <div class="form-group">
                 <label class="form-label" for="savePaletteNameInput">Palette Name</label>
-                <input type="text" id="savePaletteNameInput" class="form-input" value="${defaultName}" required maxlength="40" />
+                <input type="text" id="savePaletteNameInput" class="form-input" value="${Utils.escapeAttr(defaultName)}" required maxlength="40" />
               </div>
 
               <div class="form-group">

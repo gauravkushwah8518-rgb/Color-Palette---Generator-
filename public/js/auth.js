@@ -23,19 +23,19 @@ const Auth = {
   // Ensure default registered users in store
   ensureDefaultData() {
     let users = Utils.storage.get(this.USERS_STORE_KEY, null);
-    if (!users || !Array.isArray(users) || users.length === 0) {
-      users = [
-        {
-          id: 'user_pro_01',
-          name: 'Gaurav Kushwah',
-          email: 'gauravkushwah8518@gmail.com',
-          avatarInitials: 'GK',
-          tier: 'Pro Creator',
-          joinedAt: new Date().toISOString()
-        }
-      ];
-      Utils.storage.set(this.USERS_STORE_KEY, users);
+    if (!users || !Array.isArray(users)) {
+      Utils.storage.set(this.USERS_STORE_KEY, []);
     }
+  },
+
+  // Basic email format validation
+  isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(email || '').trim());
+  },
+
+  // Password must be at least 6 characters
+  isValidPassword(password) {
+    return typeof password === 'string' && password.length >= 6;
   },
 
   // Get currently active user (returns null if logged out)
@@ -62,18 +62,25 @@ const Auth = {
 
   // Sign up new user
   signUp(name, email, password) {
-    if (!name || !email) {
-      UI.showToast('Please provide your full name and email', '#EF4444', 'alert-circle');
+    if (!name || !name.trim()) {
+      UI.showToast('Please provide your full name', '#EF4444', 'alert-circle');
+      return false;
+    }
+    if (!this.isValidEmail(email)) {
+      UI.showToast('Please enter a valid email address', '#EF4444', 'alert-circle');
+      return false;
+    }
+    if (!this.isValidPassword(password)) {
+      UI.showToast('Password must be at least 6 characters', '#EF4444', 'alert-circle');
       return false;
     }
 
     const users = Utils.storage.get(this.USERS_STORE_KEY, []);
     const existing = users.find(u => u.email.toLowerCase() === email.trim().toLowerCase());
-    
+
     if (existing) {
-      this.setActiveUser(existing);
-      UI.showToast(`Welcome back, ${existing.name}! Logged in successfully.`, '#10B981', 'check-circle');
-      return true;
+      UI.showToast('An account with this email already exists. Please log in.', '#F59E0B', 'alert-circle');
+      return false;
     }
 
     const initials = name.trim().split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'CC';
@@ -95,28 +102,21 @@ const Auth = {
 
   // Login existing user
   login(email, password) {
-    if (!email) {
-      UI.showToast('Please enter your email address', '#EF4444', 'alert-circle');
+    if (!this.isValidEmail(email)) {
+      UI.showToast('Please enter a valid email address', '#EF4444', 'alert-circle');
+      return false;
+    }
+    if (!this.isValidPassword(password)) {
+      UI.showToast('Password must be at least 6 characters', '#EF4444', 'alert-circle');
       return false;
     }
 
     const users = Utils.storage.get(this.USERS_STORE_KEY, []);
-    let user = users.find(u => u.email.toLowerCase() === email.trim().toLowerCase());
+    const user = users.find(u => u.email.toLowerCase() === email.trim().toLowerCase());
 
     if (!user) {
-      // Create user smoothly if new
-      const name = email.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-      const initials = name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2) || 'CC';
-      user = {
-        id: Utils.generateId(),
-        name: name,
-        email: email.trim().toLowerCase(),
-        avatarInitials: initials,
-        tier: 'Pro Creator',
-        joinedAt: new Date().toISOString()
-      };
-      users.push(user);
-      Utils.storage.set(this.USERS_STORE_KEY, users);
+      UI.showToast('No account found with this email. Please sign up first.', '#EF4444', 'alert-circle');
+      return false;
     }
 
     this.setActiveUser(user);
@@ -124,17 +124,23 @@ const Auth = {
     return true;
   },
 
-  // 1-Click Demo Login
+  // 1-Click Demo Login (creates a guest session, no personal data)
   demoLogin() {
     const users = Utils.storage.get(this.USERS_STORE_KEY, []);
-    const demoUser = users[0] || {
-      id: 'user_pro_01',
-      name: 'Gaurav Kushwah',
-      email: 'gauravkushwah8518@gmail.com',
-      avatarInitials: 'GK',
-      tier: 'Pro Creator',
-      joinedAt: new Date().toISOString()
-    };
+    let demoUser = users.find(u => u.tier === 'Guest');
+
+    if (!demoUser) {
+      demoUser = {
+        id: Utils.generateId(),
+        name: 'Guest Creator',
+        email: 'guest@colorcraft.local',
+        avatarInitials: 'GC',
+        tier: 'Guest',
+        joinedAt: new Date().toISOString()
+      };
+      users.push(demoUser);
+      Utils.storage.set(this.USERS_STORE_KEY, users);
+    }
 
     this.setActiveUser(demoUser);
     UI.showToast(`🚀 Signed in as ${demoUser.name}`, '#6D5EF8', 'sparkles');
@@ -172,10 +178,12 @@ const Auth = {
 
     if (cluster) {
       if (user && user.id) {
+        const safeName = Utils.escapeHtml(user.name);
+        const safeEmail = Utils.escapeHtml(user.email);
         cluster.innerHTML = `
-          <button id="userProfileBtn" class="auth-user-pill" title="Signed in as ${user.name} (${user.email})">
-            <span class="user-avatar-circle">${user.avatarInitials}</span>
-            <span class="user-name-text">${user.name.split(' ')[0]}</span>
+          <button id="userProfileBtn" class="auth-user-pill" title="Signed in as ${safeName} (${safeEmail})">
+            <span class="user-avatar-circle">${Utils.escapeHtml(user.avatarInitials || 'CC')}</span>
+            <span class="user-name-text">${safeName.split(' ')[0]}</span>
           </button>
         `;
       } else {
@@ -185,7 +193,7 @@ const Auth = {
               <i data-lucide="log-in" style="width: 14px; height: 14px;"></i> Log In
             </button>
             <button id="openSignupBtn" class="btn btn-primary btn-sm" onclick="Auth.openAuthModal('signup')">
-              <i data-lucide="user-plus" style="width: 14px; height: 14px;"></i> Sign In
+              <i data-lucide="user-plus" style="width: 14px; height: 14px;"></i> Sign Up
             </button>
           </div>
         `;
@@ -197,10 +205,10 @@ const Auth = {
         mobileSlot.innerHTML = `
           <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: var(--surface-hover); border-radius: var(--radius-sm); border: 1px solid var(--border); margin-top: 10px;">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <span class="user-avatar-circle" style="width: 32px; height: 32px; font-size: 0.85rem;">${user.avatarInitials}</span>
+              <span class="user-avatar-circle" style="width: 32px; height: 32px; font-size: 0.85rem;">${Utils.escapeHtml(user.avatarInitials || 'CC')}</span>
               <div>
-                <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary);">${user.name}</div>
-                <div style="font-size: 0.75rem; color: var(--text-muted);">${user.email}</div>
+                <div style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary);">${Utils.escapeHtml(user.name)}</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">${Utils.escapeHtml(user.email)}</div>
               </div>
             </div>
             <button class="btn btn-ghost btn-sm" onclick="Auth.logout()" style="color: var(--danger); padding: 4px 8px;">
@@ -272,17 +280,17 @@ const Auth = {
             <form id="inpageAuthForm" onsubmit="Auth.handleInpageSubmit(event)" style="text-align: left;">
               <div class="form-group" id="inpageNameGroup">
                 <label class="form-label" for="inpageNameInput">Full Name</label>
-                <input type="text" id="inpageNameInput" class="form-input" placeholder="e.g. Gaurav Kushwah" value="Gaurav Kushwah" required />
+                <input type="text" id="inpageNameInput" class="form-input" placeholder="e.g. Alex Creator" required />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="inpageEmailInput">Email Address</label>
-                <input type="email" id="inpageEmailInput" class="form-input" placeholder="you@example.com" value="gauravkushwah8518@gmail.com" required />
+                <input type="email" id="inpageEmailInput" class="form-input" placeholder="you@example.com" required />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="inpagePasswordInput">Password</label>
-                <input type="password" id="inpagePasswordInput" class="form-input" placeholder="••••••••••••" value="password123" required />
+                <input type="password" id="inpagePasswordInput" class="form-input" placeholder="Minimum 6 characters" minlength="6" required />
               </div>
 
               <input type="hidden" id="inpageModeField" value="signup" />
@@ -371,11 +379,14 @@ const Auth = {
     const mode = document.getElementById('inpageModeField') ? document.getElementById('inpageModeField').value : 'signup';
     const email = document.getElementById('inpageEmailInput') ? document.getElementById('inpageEmailInput').value : '';
     const name = document.getElementById('inpageNameInput') ? document.getElementById('inpageNameInput').value : '';
+    const password = document.getElementById('inpagePasswordInput') ? document.getElementById('inpagePasswordInput').value : '';
 
     if (mode === 'signup') {
-      this.signUp(name, email, 'password123');
+      if (this.signUp(name, email, password)) {
+        UI.showToast('Workspace unlocked! 🎨', '#10B981', 'unlock');
+      }
     } else {
-      this.login(email, 'password123');
+      this.login(email, password);
     }
   },
 
@@ -423,12 +434,12 @@ const Auth = {
 
               <div class="form-group">
                 <label class="form-label" for="authEmailInput">Email Address</label>
-                <input type="email" id="authEmailInput" class="form-input" placeholder="you@example.com" required value="gauravkushwah8518@gmail.com" />
+                <input type="email" id="authEmailInput" class="form-input" placeholder="you@example.com" required />
               </div>
 
               <div class="form-group">
                 <label class="form-label" for="authPasswordInput">Password</label>
-                <input type="password" id="authPasswordInput" class="form-input" placeholder="••••••••••••" required value="password123" />
+                <input type="password" id="authPasswordInput" class="form-input" placeholder="Minimum 6 characters" minlength="6" required />
                 <span class="form-hint">Enter your password to sign in</span>
               </div>
 
@@ -486,12 +497,13 @@ const Auth = {
     const mode = document.getElementById('authModeField') ? document.getElementById('authModeField').value : 'signup';
     const email = document.getElementById('authEmailInput') ? document.getElementById('authEmailInput').value : '';
     const name = document.getElementById('authNameInput') ? document.getElementById('authNameInput').value : '';
+    const password = document.getElementById('authPasswordInput') ? document.getElementById('authPasswordInput').value : '';
 
     if (mode === 'signup') {
-      const ok = this.signUp(name, email, 'password123');
+      const ok = this.signUp(name, email, password);
       if (ok) UI.closeModal('authModal');
     } else {
-      const ok = this.login(email, 'password123');
+      const ok = this.login(email, password);
       if (ok) UI.closeModal('authModal');
     }
   },
@@ -503,6 +515,10 @@ const Auth = {
 
     const savedPalettes = Utils.storage.get('colorcraft-palettes', []);
     const userCount = savedPalettes.length;
+    const safeName = Utils.escapeHtml(user.name);
+    const safeEmail = Utils.escapeHtml(user.email);
+    const safeInitials = Utils.escapeHtml(user.avatarInitials || 'CC');
+    const safeTier = Utils.escapeHtml(user.tier || 'Member');
 
     const modalHtml = `
       <div class="modal-overlay is-open" id="profileModal">
@@ -510,11 +526,11 @@ const Auth = {
           <div class="modal-header">
             <div style="display: flex; align-items: center; gap: 12px;">
               <div class="user-avatar-circle" style="width: 42px; height: 42px; font-size: 1.1rem;">
-                ${user.avatarInitials}
+                ${safeInitials}
               </div>
               <div>
-                <h3 class="modal-title">${user.name}</h3>
-                <p style="font-size: 0.85rem; color: var(--text-secondary);">${user.email}</p>
+                <h3 class="modal-title">${safeName}</h3>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">${safeEmail}</p>
               </div>
             </div>
             <button class="btn-icon-only modal-close-btn" onclick="UI.closeModal('profileModal')">
@@ -530,7 +546,7 @@ const Auth = {
               </div>
               <div style="background: var(--surface-hover); padding: 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
                 <div style="font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted);">Account Tier</div>
-                <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-top: 4px;">${user.tier}</div>
+                <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-top: 4px;">${safeTier}</div>
               </div>
             </div>
 

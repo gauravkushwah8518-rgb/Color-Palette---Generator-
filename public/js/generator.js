@@ -346,9 +346,12 @@ const Generator = {
       });
     });
 
-    // Spacebar generator trigger (when not in an input)
+    // Spacebar generator trigger (skip when typing or when a button/link is focused)
     document.addEventListener('keydown', (e) => {
-      if (e.code === 'Space' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
+      const active = document.activeElement;
+      const activeTag = active ? active.tagName : '';
+      const isInteractive = ['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON', 'A'].includes(activeTag) || (active && active.isContentEditable);
+      if (e.code === 'Space' && !isInteractive) {
         e.preventDefault();
         this.generateNewPalette(true);
       }

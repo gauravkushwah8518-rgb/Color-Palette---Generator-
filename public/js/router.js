@@ -104,11 +104,17 @@ const Router = {
     this.isNavigating = true;
 
     const cleanTarget = targetUrl.split('#')[0] || 'index.html';
+    const anchorId = targetUrl.includes('#') ? targetUrl.split('#')[1] : null;
     const currentPath = window.location.pathname.split('/').pop() || 'index.html';
 
-    // If clicking the current page link, smoothly scroll to top
-    if (cleanTarget === currentPath && !targetUrl.includes('#')) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Same page: handle anchor scroll or smooth scroll to top
+    if (cleanTarget === currentPath) {
+      if (anchorId) {
+        const targetEl = document.getElementById(anchorId);
+        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
       this.isNavigating = false;
       return;
     }
@@ -154,8 +160,17 @@ const Router = {
         window.history.pushState({ path: targetUrl }, '', targetUrl);
       }
 
-      // 7. Scroll to top
-      window.scrollTo(0, 0);
+      // 7. Scroll to top, or down to the #anchor if the link had one
+      if (anchorId) {
+        const anchorEl = document.getElementById(anchorId);
+        if (anchorEl) {
+          anchorEl.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      } else {
+        window.scrollTo(0, 0);
+      }
 
       // 8. Update active nav link highlight
       this.updateActiveNavLinks(cleanTarget);
