@@ -11,6 +11,9 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  /* Safety net: any stray wide element must never scroll the page sideways
+     (mobile browsers in "Desktop site" mode have narrow viewports) */
+  overflow-x: clip;
 }
 
 body {

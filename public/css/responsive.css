@@ -79,8 +79,11 @@ div[style*="grid-template-columns: 1.1fr 1fr"] {
   }
 }
 
-/* Max Width 900px (Navbar Collapse) */
-@media (max-width: 900px) {
+/* Max Width 1240px (Navbar Collapse — full navbar (brand + 6 links + auth
+   cluster) needs ~1220px; below this it would overflow. Real laptops are
+   ≥1280px so they keep the full navbar. Mobile "Desktop site" mode (~980-1044px)
+   correctly gets the hamburger instead of a side-shifted page.) */
+@media (max-width: 1240px) {
   .nav-links, .nav-right-cluster .btn-primary {
     display: none;
   }
@@ -92,7 +95,10 @@ div[style*="grid-template-columns: 1.1fr 1fr"] {
   .mobile-nav-panel {
     display: flex;
   }
+}
 
+/* Max Width 900px */
+@media (max-width: 900px) {
   .saved-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
