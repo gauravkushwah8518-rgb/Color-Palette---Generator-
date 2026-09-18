@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/responsive.css" />
   <link rel="stylesheet" href="css/effects.css" />
+    <link rel="stylesheet" href="css/themes.css" />
 
   <!-- Theme Script in head -->
   <script src="js/theme.js"></script>
@@ -65,6 +66,11 @@
             <i data-lucide="sun" class="theme-icon-sun"></i>
             <i data-lucide="moon" class="theme-icon-moon"></i>
           </button>
+          <!-- Accent Theme Picker (HeroUI-style) -->
+          <button class="accent-picker-btn" aria-label="Choose accent theme" title="Accent theme">
+            <span class="accent-picker-orb" aria-hidden="true"></span>
+          </button>
+
           <div id="navbarAuthSlot"></div>
           <a href="saved.html" class="btn btn-primary btn-sm">
             <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> Workspace
@@ -87,6 +93,12 @@
         <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
       </ul>
       <div id="mobileAuthSlot"></div>
+      <!-- Mobile accent picker row -->
+      <div class="mobile-accent-row">
+        <span class="mobile-accent-label">Accent theme</span>
+        <div class="mobile-accent-dots" id="mobileAccentDots"></div>
+      </div>
+
     </div>
   </header>
 
@@ -196,6 +208,37 @@
           <div class="glass-panel" style="padding: var(--space-4);" id="tetradicHarmonyBox"></div>
         </div>
       </div>
+
+      <!-- ============ CURATED PALETTES GALLERY (ColorHunt-style) ============ -->
+      <div id="curatedPalettesSection" style="margin-top: var(--space-16);">
+        <div class="section-header" style="margin-bottom: var(--space-4);">
+          <div>
+            <h2 class="section-title" style="font-size: 1.5rem;">Curated Palettes</h2>
+            <p class="section-subtitle">A hand-picked collection of light, pastel & aesthetic palettes. Click a color to copy it, or send the whole palette to the Generator.</p>
+          </div>
+          <span class="palette-count-badge" id="paletteCount"></span>
+        </div>
+
+        <div class="palette-toolbar">
+          <div class="palette-search-wrap">
+            <i data-lucide="search" style="width: 15px; height: 15px;"></i>
+            <input type="text" id="paletteSearch" class="palette-search-input" placeholder="Search palettes or hex codes…" autocomplete="off" />
+          </div>
+          <div class="palette-tag-bar" id="paletteTagBar">
+            <button class="palette-tag-chip is-active" data-tag="all">All</button>
+            <button class="palette-tag-chip" data-tag="light">Light</button>
+            <button class="palette-tag-chip" data-tag="pastel">Pastel</button>
+            <button class="palette-tag-chip" data-tag="warm">Warm</button>
+            <button class="palette-tag-chip" data-tag="blue">Blue</button>
+            <button class="palette-tag-chip" data-tag="pink">Pink</button>
+            <button class="palette-tag-chip" data-tag="green">Green</button>
+            <button class="palette-tag-chip" data-tag="purple">Purple</button>
+            <button class="palette-tag-chip" data-tag="cream">Cream</button>
+            <button class="palette-tag-chip" data-tag="minimal">Minimal</button>
+        </div>
+
+        <div class="palette-gallery-grid" id="paletteGallery"></div>
+      </div>
       </div>
 
     </div>
@@ -220,8 +263,8 @@
   <script src="js/colors.js"></script>
   <script src="js/auth.js"></script>
   <script src="js/ui.js"></script>
-  <script src="js/router.js"></script>
-  <script src="js/navbar.js"></script>
-  <script src="js/explorer.js"></script>
+  <script src="js/router.js"></script>    <script src="js/navbar.js"></script>
+    <script src="js/palettes.js"></script>
+    <script src="js/explorer.js"></script>
 </body>
 </html>

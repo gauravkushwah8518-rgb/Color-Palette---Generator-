@@ -11,7 +11,7 @@
   border-radius: 50%;
   user-select: none;
   transition: transform var(--duration-base) var(--ease);
-  filter: drop-shadow(0 2px 6px rgba(109, 94, 248, 0.35));
+  filter: drop-shadow(0 2px 6px rgba(var(--accent-rgb), 0.35));
 }
 
 .brand-logo:hover .brand-logo-img {
@@ -69,7 +69,7 @@
 }
 
 .nav-link:hover {
-  text-shadow: 0 0 12px rgba(123, 109, 249, 0.4);
+  text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.4);
 }
 
 /* === AUTH GATE / MODALS: entrance + glass shine === */
@@ -122,7 +122,8 @@
 
 /* === BUTTONS: gradient primary + glow pulse === */
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent) 0%, #9B5CF6 55%, #E52E71 130%);
+  background: linear-gradient(135deg, var(--accent) 0%, #9B5CF6 55%, #E52E71 130%); /* fallback */
+  background: linear-gradient(135deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 62%, #9B5CF6) 55%, color-mix(in srgb, var(--accent) 35%, #E52E71) 130%);
   border: none;
   position: relative;
   overflow: hidden;
@@ -178,9 +179,9 @@
 
 /* === HERO SEARCH PILL: gradient focus ring === */
 .hero-search-pill:focus-within {
-  border-color: rgba(123, 109, 249, 0.55);
+  border-color: rgba(var(--accent-rgb), 0.55);
   box-shadow:
-    0 0 0 4px rgba(123, 109, 249, 0.12),
+    0 0 0 4px rgba(var(--accent-rgb), 0.12),
     0 8px 32px -8px rgba(122, 4, 235, 0.25);
 }
 
@@ -197,7 +198,8 @@
 
 /* === USER PILL: gradient avatar ring === */
 .user-avatar-circle {
-  background: linear-gradient(135deg, var(--accent), #E52E71);
+  background: linear-gradient(135deg, var(--accent), #E52E71); /* fallback */
+  background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 45%, #E52E71));
   box-shadow: 0 0 0 2px var(--surface), 0 0 10px var(--accent-glow);
 }
 
@@ -213,7 +215,7 @@
 .form-input:focus,
 .custom-select:focus {
   border-color: var(--border-focus) !important;
-  box-shadow: 0 0 0 4px rgba(123, 109, 249, 0.12) !important;
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.12) !important;
   outline: none;
 }
 
@@ -225,14 +227,513 @@
   -webkit-backdrop-filter: blur(12px);
 }
 
+/* ============================================================
+   ACCENT THEME PICKER (HeroUI-style)
+   Navbar orb trigger + glass popover grid of color dots
+   ============================================================ */
+
+/* --- Navbar trigger button (matches .theme-toggle-btn sizing) --- */
+.accent-picker-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  position: relative;
+}
+
+.accent-picker-btn:hover,
+.accent-picker-btn[aria-expanded="true"] {
+  background: var(--surface-hover);
+  border-color: var(--border);
+}
+
+/* The orb: shows the CURRENT accent color as a glowing gradient dot */
+.accent-picker-orb {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 42%),
+    conic-gradient(from 210deg, rgb(var(--accent-rgb)), #E52E71, rgb(var(--accent-rgb)));
+  box-shadow:
+    0 0 0 1px rgba(var(--accent-rgb), 0.35),
+    0 0 10px rgba(var(--accent-rgb), 0.45);
+  transition: transform var(--duration-base) var(--ease-spring), box-shadow var(--duration-base) var(--ease);
+}
+
+.accent-picker-btn:hover .accent-picker-orb,
+.accent-picker-btn[aria-expanded="true"] .accent-picker-orb {
+  transform: scale(1.18) rotate(40deg);
+  box-shadow:
+    0 0 0 1px rgba(var(--accent-rgb), 0.55),
+    0 0 16px rgba(var(--accent-rgb), 0.65);
+}
+
+/* --- Popover card --- */
+.accent-picker-popover {
+  position: fixed;
+  z-index: 9000;
+  width: 264px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  background: var(--modal-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-hover), 0 0 0 1px rgba(var(--accent-rgb), 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px) scale(0.92);
+  transform-origin: top right;
+  transition:
+    opacity var(--duration-fast) var(--ease),
+    transform 300ms var(--ease-spring),
+    visibility 0s linear var(--duration-fast);
+}
+
+.accent-picker-popover.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity var(--duration-fast) var(--ease),
+    transform 300ms var(--ease-spring),
+    visibility 0s;
+}
+
+/* --- Dot grid --- */
+.accent-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px 4px;
+}
+
+.accent-dot {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 6px 2px 4px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+  transition: background var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+  animation: accent-dot-pop 340ms var(--ease-spring) backwards;
+  animation-delay: calc(var(--dot-index, 0) * 24ms);
+}
+
+@keyframes accent-dot-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.accent-dot:hover {
+  background: var(--surface-hover);
+}
+
+.accent-dot:active {
+  transform: scale(0.92);
+}
+
+/* The color circle itself */
+.accent-dot::before {
+  content: '';
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 45%),
+    var(--dot-color);
+  box-shadow: 0 2px 8px -2px var(--dot-color);
+  transition: transform var(--duration-base) var(--ease-spring), box-shadow var(--duration-base) var(--ease);
+}
+
+.accent-dot:hover::before {
+  transform: scale(1.15);
+  box-shadow: 0 3px 14px -2px var(--dot-color), 0 0 12px -2px var(--dot-color);
+}
+
+/* Active state ring + check */
+.accent-dot.is-active::before {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 4px var(--dot-color),
+    0 3px 14px -2px var(--dot-color);
+}
+
+.accent-dot-check {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 300ms var(--ease-spring);
+  pointer-events: none;
+}
+
+.accent-dot-check svg,
+.accent-dot-check i {
+  width: 14px;
+  height: 14px;
+  stroke-width: 3.2;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+
+.accent-dot.is-active .accent-dot-check {
+  transform: translateX(-50%) scale(1);
+}
+
+.accent-dot-label {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.accent-dot.is-active .accent-dot-label {
+  color: var(--text-primary);
+}
+
+/* --- Footer --- */
+.accent-picker-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.accent-picker-hint {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.accent-picker-current {
+  font-size: 0.72rem;
+  color: rgb(var(--accent-rgb));
+  font-weight: 700;
+}
+
+/* ============================================================
+   MOBILE ACCENT ROW (inside mobile nav drawer)
+   ============================================================ */
+.mobile-accent-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 4px;
+  margin-top: 6px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.mobile-accent-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.mobile-accent-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.mobile-accent-dots .accent-dot {
+  padding: 0;
+  animation: none;
+}
+
+.mobile-accent-dots .accent-dot::before {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-accent-dots .accent-dot-label,
+.mobile-accent-dots .accent-dot-check {
+  display: none;
+}
+
+.mobile-accent-dots .accent-dot.is-active::before {
+  box-shadow:
+    0 0 0 2px var(--surface),
+    0 0 0 3.5px var(--dot-color);
+}
+
+/* ============================================================
+   CURATED PALETTES GALLERY (ColorHunt-style)
+   ============================================================ */
+
+.palette-count-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: var(--badge-bg);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+/* --- Toolbar: search + tag chips --- */
+.palette-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.palette-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 220px;
+  max-width: 340px;
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: border-color var(--duration-fast) var(--ease), box-shadow var(--duration-fast) var(--ease);
+}
+
+.palette-search-wrap:focus-within {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.1);
+}
+
+.palette-search-input {
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.86rem;
+  font-family: var(--font-body);
+  width: 100%;
+}
+
+.palette-tag-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.palette-tag-chip {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  padding: 5px 13px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.palette-tag-chip:hover {
+  border-color: rgba(var(--accent-rgb), 0.4);
+  color: var(--text-primary);
+  transform: translateY(-1px);
+}
+
+.palette-tag-chip.is-active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+/* --- Gallery grid --- */
+.palette-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.palette-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: var(--space-12) var(--space-4);
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* --- Card --- */
+.palette-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: default;
+  transition: transform var(--duration-base) var(--ease), box-shadow var(--duration-base) var(--ease), border-color var(--duration-base) var(--ease);
+}
+
+.palette-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--accent-rgb), 0.25);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Color strip: 5 stacked bars that fan out on hover (ColorHunt signature) */
+.palette-strip {
+  display: flex;
+  flex-direction: column;
+  height: 148px;
+}
+
+.palette-strip-swatch {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 10px;
+  cursor: pointer;
+  position: relative;
+  transition: flex 260ms var(--ease);
+}
+
+.palette-strip-swatch::after {
+  content: attr(data-hex);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: attr(data-text);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity var(--duration-fast) var(--ease), transform var(--duration-fast) var(--ease);
+  mix-blend-mode: difference;
+  color: #fff;
+}
+
+.palette-strip-swatch:hover {
+  flex: 2.2;
+}
+
+.palette-strip-swatch:hover::after {
+  opacity: 0.85;
+  transform: translateX(0);
+}
+
+/* --- Card body: tags + actions --- */
+.palette-card-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+}
+
+.palette-tags {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.palette-actions {
+  display: flex;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.palette-actions button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.palette-actions button:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.palette-actions button svg,
+.palette-actions button i {
+  width: 15px;
+  height: 15px;
+}
+
+.palette-actions .palette-like.is-liked {
+  color: #E52E71;
+}
+
+.palette-actions .palette-like.is-liked svg {
+  fill: #E52E71;
+}
+
+.palette-actions .palette-like:hover {
+  transform: scale(1.15);
+}
+
+.palette-actions .palette-use:hover {
+  background: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Heart pop animation on like */
+@keyframes heart-pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.45); }
+  100% { transform: scale(1); }
+}
+
+.palette-like.is-liked svg {
+  animation: heart-pop 320ms var(--ease-spring);
+}
+
 /* === REDUCED MOTION: disable all effects-layer animations === */
 @media (prefers-reduced-motion: reduce) {
   .brand-icon-wrapper::after,
   .theme-toggle-btn::before,
   .modal-container::before,
-  .btn-primary::after {
+  .btn-primary::after,
+  .accent-dot,
+  .palette-like.is-liked svg {
     animation: none !important;
-    opacity: 0 !important;
+    opacity: 1 !important;
+  }
+
+  .accent-picker-popover,
+  .accent-picker-popover.is-open,
+  .accent-dot,
+  .accent-picker-orb {
+    transition: none !important;
   }
 
   .swatch-card:hover,

@@ -86,30 +86,30 @@
 /* === SUBTLE SLEEK GLOWING CLICK PULSE / RIPPLE EFFECT === */
 @keyframes navButtonGlowClick {
   0% {
-    box-shadow: 0 0 0 0 rgba(109, 94, 248, 0.4), 0 2px 8px rgba(109, 94, 248, 0.2);
+    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.4), 0 2px 8px rgba(var(--accent-rgb), 0.2);
     transform: scale(0.97);
   }
   40% {
-    box-shadow: 0 0 0 4px rgba(109, 94, 248, 0.15), 0 2px 14px rgba(109, 94, 248, 0.2);
+    box-shadow: 0 0 0 4px rgba(var(--accent-rgb), 0.15), 0 2px 14px rgba(var(--accent-rgb), 0.2);
     transform: scale(1.02);
   }
   100% {
-    box-shadow: 0 0 0 8px rgba(109, 94, 248, 0), 0 0 0 0 rgba(109, 94, 248, 0);
+    box-shadow: 0 0 0 8px rgba(var(--accent-rgb), 0), 0 0 0 0 rgba(var(--accent-rgb), 0);
     transform: scale(1);
   }
 }
 
 @keyframes navLinkGlowPulse {
   0% {
-    text-shadow: 0 0 0 rgba(109, 94, 248, 0);
+    text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
     transform: scale(0.98);
   }
   40% {
-    text-shadow: 0 0 8px rgba(109, 94, 248, 0.3);
+    text-shadow: 0 0 8px rgba(var(--accent-rgb), 0.3);
     transform: scale(1.02);
   }
   100% {
-    text-shadow: 0 0 0 rgba(109, 94, 248, 0);
+    text-shadow: 0 0 0 rgba(var(--accent-rgb), 0);
     transform: scale(1);
   }
 }
@@ -138,7 +138,7 @@
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  background: radial-gradient(circle, rgba(109, 94, 248, 0.3) 0%, rgba(109, 94, 248, 0.1) 50%, rgba(109, 94, 248, 0) 75%);
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.3) 0%, rgba(var(--accent-rgb), 0.1) 50%, rgba(var(--accent-rgb), 0) 75%);
   width: 48px;
   height: 48px;
   margin-top: -24px;

@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/responsive.css" />
   <link rel="stylesheet" href="css/effects.css" />
+    <link rel="stylesheet" href="css/themes.css" />
 
   <!-- Theme Script (Immediate in head to prevent FOUC) -->
   <script src="js/theme.js"></script>
@@ -80,6 +81,11 @@
           </button>
 
           <!-- Auth User Slot (Dynamic) -->
+          <!-- Accent Theme Picker (HeroUI-style) -->
+          <button class="accent-picker-btn" aria-label="Choose accent theme" title="Accent theme">
+            <span class="accent-picker-orb" aria-hidden="true"></span>
+          </button>
+
           <div id="navbarAuthSlot"></div>
 
           <!-- Get Started Pill Button -->
@@ -106,6 +112,12 @@
         <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
       </ul>
       <div id="mobileAuthSlot"></div>
+      <!-- Mobile accent picker row -->
+      <div class="mobile-accent-row">
+        <span class="mobile-accent-label">Accent theme</span>
+        <div class="mobile-accent-dots" id="mobileAccentDots"></div>
+      </div>
+
       <div style="display: flex; gap: 10px; margin-top: 8px;">
         <a href="saved.html" class="btn btn-primary" style="flex: 1;">Open Workspace</a>
       </div>

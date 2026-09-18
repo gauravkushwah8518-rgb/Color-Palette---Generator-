@@ -43,7 +43,7 @@ body {
   transform: translateX(-50%);
   width: 680px;
   height: 480px;
-  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(109, 94, 248, 0) 70%);
+  background: radial-gradient(circle, var(--accent-glow) 0%, rgba(var(--accent-rgb), 0) 70%);
   filter: blur(80px);
   opacity: 0.8;
   pointer-events: none;

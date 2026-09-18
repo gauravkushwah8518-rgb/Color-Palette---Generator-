@@ -1,0 +1,168 @@
+/* ============================================================
+   ColorCraft — Accent Theme System (HeroUI-inspired)
+   8 selectable accent palettes. Applied via [data-accent] on
+   <html>, overriding --accent-rgb (light) and (dark).
+   JS persists selection in localStorage.
+   ============================================================ */
+
+/* ---- Violet (default — matches existing design) ---- */
+[data-accent="violet"] {
+  --accent-rgb: 109, 94, 248;
+}
+[data-accent="violet"][data-theme="dark"] {
+  --accent-rgb: 123, 109, 249;
+}
+
+/* ---- Blue ---- */
+[data-accent="blue"] {
+  --accent-rgb: 59, 130, 246;
+}
+[data-accent="blue"][data-theme="dark"] {
+  --accent-rgb: 96, 145, 250;
+}
+
+/* ---- Sky ---- */
+[data-accent="sky"] {
+  --accent-rgb: 14, 165, 233;
+}
+[data-accent="sky"][data-theme="dark"] {
+  --accent-rgb: 56, 189, 248;
+}
+
+/* ---- Mint ---- */
+[data-accent="mint"] {
+  --accent-rgb: 16, 185, 129;
+}
+[data-accent="mint"][data-theme="dark"] {
+  --accent-rgb: 52, 211, 153;
+}
+
+/* ---- Amber ---- */
+[data-accent="amber"] {
+  --accent-rgb: 245, 158, 11;
+}
+[data-accent="amber"][data-theme="dark"] {
+  --accent-rgb: 251, 191, 36;
+}
+
+/* ---- Rose ---- */
+[data-accent="rose"] {
+  --accent-rgb: 244, 63, 94;
+}
+[data-accent="rose"][data-theme="dark"] {
+  --accent-rgb: 251, 113, 133;
+}
+
+/* ---- Pink ---- */
+[data-accent="pink"] {
+  --accent-rgb: 236, 72, 153;
+}
+[data-accent="pink"][data-theme="dark"] {
+  --accent-rgb: 249, 128, 187;
+}
+
+/* ---- Purple ---- */
+[data-accent="purple"] {
+  --accent-rgb: 168, 85, 247;
+}
+[data-accent="purple"][data-theme="dark"] {
+  --accent-rgb: 192, 132, 252;
+}
+
+/* ---- Teal ---- */
+[data-accent="teal"] {
+  --accent-rgb: 20, 184, 166;
+}
+[data-accent="teal"][data-theme="dark"] {
+  --accent-rgb: 45, 212, 191;
+}
+
+/* ---- Lime ---- */
+[data-accent="lime"] {
+  --accent-rgb: 132, 204, 22;
+}
+[data-accent="lime"][data-theme="dark"] {
+  --accent-rgb: 163, 230, 53;
+}
+
+/* ---- Orange ---- */
+[data-accent="orange"] {
+  --accent-rgb: 249, 115, 22;
+}
+[data-accent="orange"][data-theme="dark"] {
+  --accent-rgb: 251, 146, 60;
+}
+
+/* ---- Cyan ---- */
+[data-accent="cyan"] {
+  --accent-rgb: 6, 182, 212;
+}
+[data-accent="cyan"][data-theme="dark"] {
+  --accent-rgb: 34, 211, 238;
+}
+
+/* ---- Crimson ---- */
+[data-accent="crimson"] {
+  --accent-rgb: 220, 20, 60;
+}
+[data-accent="crimson"][data-theme="dark"] {
+  --accent-rgb: 239, 68, 68;
+}
+
+/* ---- Indigo ---- */
+[data-accent="indigo"] {
+  --accent-rgb: 79, 70, 229;
+}
+[data-accent="indigo"][data-theme="dark"] {
+  --accent-rgb: 99, 102, 241;
+}
+
+/* Smooth transitions so theme switching feels alive */
+html {
+  --accent-transition: background-color 400ms var(--ease), border-color 400ms var(--ease), color 400ms var(--ease), box-shadow 400ms var(--ease);
+}
+
+.btn-primary,
+.theme-toggle-btn,
+.nav-link.active,
+.auth-user-pill,
+.swatch-card,
+.gradient-stop,
+.color-input,
+.stop-color-input {
+  transition-property: background-color, border-color, color, box-shadow, transform;
+  transition-duration: 400ms;
+  transition-timing-function: var(--ease);
+}
+
+/* ============================================================
+   Accent Ripple — page-wide circular wipe on theme change
+   (JS creates a fixed overlay with this class, expanding from
+   the accent picker button coordinates)
+   ============================================================ */
+.accent-ripple {
+  position: fixed;
+  z-index: 99999;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: scale(0);
+  animation: accent-ripple-expand 700ms var(--ease) forwards;
+  mix-blend-mode: normal;
+}
+
+@keyframes accent-ripple-expand {
+  from {
+    transform: scale(0);
+    opacity: 0.45;
+  }
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accent-ripple {
+    animation-duration: 1ms;
+  }
+}

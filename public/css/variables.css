@@ -11,13 +11,14 @@
   --border: rgba(22, 22, 26, 0.08);
   --border-subtle: rgba(22, 22, 26, 0.05);
   --border-hover: rgba(22, 22, 26, 0.16);
-  --border-focus: rgba(109, 94, 248, 0.45);
+  --border-focus: rgba(var(--accent-rgb), 0.45);
   
-  --accent: #6D5EF8;
+  --accent-rgb: 109, 94, 248; /* overridden at runtime by accent theme picker */
+  --accent: rgb(var(--accent-rgb));
   --accent-hover: #5B4AE3;
-  --accent-light: rgba(109, 94, 248, 0.08);
+  --accent-light: rgba(var(--accent-rgb), 0.08);
   --accent-contrast: #FFFFFF;
-  --accent-glow: rgba(109, 94, 248, 0.18);
+  --accent-glow: rgba(var(--accent-rgb), 0.18);
 
   --accent-pink: #F472B6;
   --accent-gold: #FBBF24;
@@ -93,13 +94,14 @@
   --border: rgba(255, 255, 255, 0.08);
   --border-subtle: rgba(255, 255, 255, 0.04);
   --border-hover: rgba(255, 255, 255, 0.16);
-  --border-focus: rgba(139, 124, 255, 0.55);
+  --border-focus: rgba(var(--accent-rgb), 0.55);
 
-  --accent: #7B6DF9;
+  --accent-rgb: 123, 109, 249;
+  --accent: rgb(var(--accent-rgb));
   --accent-hover: #8F83FF;
-  --accent-light: rgba(123, 109, 249, 0.12);
+  --accent-light: rgba(var(--accent-rgb), 0.12);
   --accent-contrast: #FFFFFF;
-  --accent-glow: rgba(123, 109, 249, 0.25);
+  --accent-glow: rgba(var(--accent-rgb), 0.25);
 
   --navbar-bg-top: rgba(14, 14, 18, 0.85);
   --navbar-bg-scrolled: rgba(22, 22, 26, 0.88);

@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="css/animations.css" />
   <link rel="stylesheet" href="css/responsive.css" />
   <link rel="stylesheet" href="css/effects.css" />
+    <link rel="stylesheet" href="css/themes.css" />
 
   <!-- Theme Script in head -->
   <script src="js/theme.js"></script>
@@ -65,6 +66,11 @@
             <i data-lucide="sun" class="theme-icon-sun"></i>
             <i data-lucide="moon" class="theme-icon-moon"></i>
           </button>
+          <!-- Accent Theme Picker (HeroUI-style) -->
+          <button class="accent-picker-btn" aria-label="Choose accent theme" title="Accent theme">
+            <span class="accent-picker-orb" aria-hidden="true"></span>
+          </button>
+
           <div id="navbarAuthSlot"></div>
           <a href="saved.html" class="btn btn-primary btn-sm">
             <i data-lucide="layout-dashboard" style="width: 14px; height: 14px;"></i> Workspace
@@ -87,6 +93,12 @@
         <li><a href="guide.html" class="mobile-nav-link">Design Guide <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i></a></li>
       </ul>
       <div id="mobileAuthSlot"></div>
+      <!-- Mobile accent picker row -->
+      <div class="mobile-accent-row">
+        <span class="mobile-accent-label">Accent theme</span>
+        <div class="mobile-accent-dots" id="mobileAccentDots"></div>
+      </div>
+
     </div>
   </header>
 

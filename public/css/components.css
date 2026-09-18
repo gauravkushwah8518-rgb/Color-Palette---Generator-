@@ -130,7 +130,7 @@
 
 .icon-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(109, 94, 248, 0.3);
+  border-color: rgba(var(--accent-rgb), 0.3);
   box-shadow: var(--shadow-md);
 }
 
@@ -635,7 +635,7 @@
   bottom: -16px;
   width: 96px;
   height: 96px;
-  background: #6D5EF8;
+  background: var(--accent);
   border-radius: 50%;
   filter: blur(32px);
   opacity: 0.5;
@@ -664,7 +664,7 @@
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, #6D5EF8, #F472B6, #FBBF24, #34D399);
+  background: linear-gradient(90deg, var(--accent), #F472B6, #FBBF24, #34D399);
 }
 
 .auth-gate-badge {

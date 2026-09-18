@@ -19,6 +19,21 @@ const Generator = {
 
     if (!this.container) return;
 
+    // Apply seeded palette from Curated Gallery (explorer.html → "Use in Generator")
+    try {
+      const seedParam = new URLSearchParams(window.location.search).get('seed');
+      if (seedParam) {
+        const hexes = seedParam.split('-')
+          .filter(h => /^[0-9A-Fa-f]{6}$/.test(h))
+          .map(h => '#' + h.toUpperCase());
+        if (hexes.length === 5) {
+          hexes.forEach((h, i) => { if (!this.locked[i]) this.colors[i] = h; });
+          UI.showToast('Palette loaded from Curated Gallery!', this.colors[0], 'palette');
+        }
+        window.history.replaceState({}, '', 'index.html');
+      }
+    } catch (e) { /* ignore */ }
+
     // Render initial sleek balanced palette
     this.render(false);
 
